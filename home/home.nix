@@ -6,19 +6,19 @@
   ...
 }@inputs:
 {
-  imports = [
-     ./modules/nnn
-    # ./modules/helix
-  ];
+  # imports = [
+  #    ./modules/nnn
+  #   # ./modules/helix
+  # ];
 
   # add unstable and tree-sitter-idris to submodule arguments
   # _module.args = {
   #   inherit (inputs) unstable tree-sitter-idris;
   # };
 
-  custom = {
-    nnn.enable = true;
-  };
+  # custom = {
+  #   nnn.enable = true;
+  # };
 
   # stylix.targets.helix.enable = false;
   # programs.helix = {
