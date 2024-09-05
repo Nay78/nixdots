@@ -8,49 +8,58 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs"; 
   };
 
-  outputs = { self, nixpkgs, home-manager }: {
-    nixosConfigurations = {
+  outputs = { self, nixpkgs, home-manager, ... }: 
+  
+    let 
+       system = "x86_64-linux"; #current system
+       # pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+       # lib = nixpkgs.lib;
+
     
-      alejg = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+       mkSystem = hostname: 
+        nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
-	  #./greetd.nix
+	  { networking.hostName = hostname; }
 	  home-manager.nixosModules.home-manager
-	  {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.alejg = { pkgs, ... }: {
-              home.username = "alejg";
-	      home.homeDirectory = "/home/alejg";
-	      programs.home-manager.enable = true;
-	      home.packages = with pkgs; [
-                keepassxc
-		firefox
-	      ];
-	      home.stateVersion = "24.05";
-
-              wayland.windowManager.sway = {
-	        enable = true;
-	        config = rec {
-		terminal = "alacritty";
-	        modifier = "Mod4";
-		startup = [
-		  {command = "firefox";}
-		];
-	        #output = {
-	        #  "Virtual-1" = {
-	            #mode = "1920x1080@60Hz"
-	        #  };
-	        #};
-	     };
-	      };
-         };
-	  }
+	  ./home
+		#  {
+		#           home-manager.useGlobalPkgs = true;
+		#           home-manager.useUserPackages = true;
+		#           home-manager.users.alejg = { pkgs, ... }: {
+		#             home.username = "alejg";
+		#      home.homeDirectory = "/home/alejg";
+		#      programs.home-manager.enable = true;
+		#      home.packages = with pkgs; [
+		#               keepassxc
+		# firefox
+		#      ];
+		#      home.stateVersion = "24.05";
+		#
+		#             wayland.windowManager.sway = {
+		#        enable = true;
+		#        config = rec {
+		# terminal = "alacritty";
+		#        modifier = "Mod4";
+		# startup = [
+		#   {command = "firefox";}
+		# ];
+		#      };
+		#      };
+		#        };
+		#  }
+	  #end
 	 ];
       };
-      
+
+    in {
+      nixosConfigurations = {
+      laptop = mkSystem "laptop";
     };
-  };
-}
+
+    };
+   
+      
+  }
+# }
 

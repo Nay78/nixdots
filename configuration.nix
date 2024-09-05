@@ -36,7 +36,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -49,10 +48,6 @@
   # Set your time zone.
   time.timeZone = "America/Santiago";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   # console = {
@@ -60,10 +55,6 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -73,12 +64,6 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # nixpkgs.config.pulseaudio = true;
-  # hardware.pulseaudio.enable = true;
-  # sound.enable = true;
-  #nixpkgs.config.allowUnfree = true;
-  #hardware.enableAllFirmware  = true;
-  # OR
    services.pipewire = {
      enable = true;
      pulse.enable = true;
@@ -110,8 +95,28 @@
      libnotify  # dunst depends on this
      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget
-     make
+     gnumake
+     pkgs.libgcc
+     gcc
    ];
+   
+  # fonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ]; })
+  ];
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+    xdg = {
+        portal = {
+            enable = true;
+            extraPortals = with pkgs; [
+                xdg-desktop-portal-wlr
+                xdg-desktop-portal-gtk
+            ];
+        };
+    };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
