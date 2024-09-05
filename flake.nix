@@ -1,14 +1,15 @@
 # /etc/nixos/flake.nix
 {
-  description = "lenovopc flake";
+  description = "1st flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager"; 
     home-manager.inputs.nixpkgs.follows = "nixpkgs"; 
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: 
+  outputs = { self, nixpkgs, home-manager, unstable, ... }@inputs: 
   
     let 
        system = "x86_64-linux"; #current system
@@ -18,6 +19,11 @@
     
        mkSystem = hostname: 
         nixpkgs.lib.nixosSystem {
+	specialArgs = {
+	  # inherit (inputs);
+	  unstable = import inputs.unstable;
+
+	};
         modules = [
           ./configuration.nix
 	  { networking.hostName = hostname; }

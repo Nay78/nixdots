@@ -7,7 +7,7 @@
 }@inputs:
 {
   imports = [
-    # ./modules/nnn
+     ./modules/nnn
     # ./modules/helix
   ];
 
@@ -422,30 +422,30 @@
   services.mako.enable = true; # notifications
   programs.home-manager.enable = true;
 
-  # gtk.enable = true;
+  gtk.enable = true;
 
-  # programs.wezterm = {
-  #   enable = true;
-  #   extraConfig = ''
-  #     local wezterm = require 'wezterm'
-  #     return {
-  #       enable_tab_bar = false,
-  #       -- color_scheme = "MaterialDesignColors",
-  #       color_scheme = "Dark Pastel",
-  #       font_size = 14.1,
-  #       font = wezterm.font_with_fallback {
-  #         'JetBrains Mono',
-  #         'FreeMono',
-  #       },
-  #       window_padding = {
-  #         left = 0,
-  #         right = 0,
-  #         top = 0,
-  #         bottom = 0,
-  #       },
-  #     }
-  #   '';
-  # };
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      local wezterm = require 'wezterm'
+      return {
+        enable_tab_bar = false,
+        -- color_scheme = "MaterialDesignColors",
+        color_scheme = "Dark Pastel",
+        font_size = 14.1,
+        font = wezterm.font_with_fallback {
+          'JetBrains Mono',
+          'FreeMono',
+        },
+        window_padding = {
+          left = 0,
+          right = 0,
+          top = 0,
+          bottom = 0,
+        },
+      }
+    '';
+  };
 
   # programs.lazygit.enable = true;
 
