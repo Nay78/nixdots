@@ -512,7 +512,7 @@
   programs.git = {
     enable = true;
     userName = "alejg";
-    userEmail = "nayguel.martinez@gmail.com"
+    userEmail = "nayguel.martinez@gmail.com";
     ignores = [
       "*.swp"
       "*.bin"
@@ -557,4 +557,4 @@
 #         "org.telegram.desktop" = [ "x-scheme-handler/tg" ];
 #       };
 #   };
-# }
+ }
