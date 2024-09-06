@@ -35,6 +35,7 @@
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -69,6 +70,14 @@
      pulse.enable = true;
    };
 
+ services.logind = {
+
+extraConfig = "HandlePowerKey=suspend";
+
+lidSwitch = "suspend";
+
+};
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
@@ -98,8 +107,8 @@
      gnumake
      pkgs.libgcc
      gcc
+     nodejs
    ];
-   
   # fonts
 
 fonts.fontDir.enable = true;

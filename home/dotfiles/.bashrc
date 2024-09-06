@@ -1,1 +1,1 @@
-alias rebuild='nixos-rebuild --flake ~/nixos'
+alias rebuild='sudo nixos-rebuild switch --flake ~/nixos'
