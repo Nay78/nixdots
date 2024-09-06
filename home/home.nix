@@ -58,7 +58,7 @@
         "Ctrl+Print" = "exec ocr-screenshot";
 
         # Password manager
-        "${modifier}+p" = "exec passmenu";
+        "${modifier}+p" = "exec keepassxc";
       };
 
       input = {
@@ -387,6 +387,7 @@
       gtypist
       pkgs.vial
       pkgs.via
+      pkgs.keepassxc
 
       # Nvidia stuff. FIXME: fine tune for the new hardware
       # egl-wayland
