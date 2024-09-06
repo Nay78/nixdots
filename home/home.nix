@@ -3,22 +3,28 @@
   pkgs,
   lib,
   unstable,
+  self,
   ...
 }@inputs:
 {
-  # imports = [
-  #    ./modules/nnn
-  #   # ./modules/helix
-  # ];
+  imports = [
+    ./modules/nnn
+    # ./modules/helix
+  ];
 
+  programs.home-manager.enable = true;
+  home.stateVersion = "24.05";
+  # home.homeDirectory = "/home/alejg"
+
+  home.file.".bashrc".source = "${inputs.self}/dotfiles/.bashrc";
   # add unstable and tree-sitter-idris to submodule arguments
   # _module.args = {
   #   inherit (inputs) unstable tree-sitter-idris;
   # };
 
-  # custom = {
-  #   nnn.enable = true;
-  # };
+  custom = {
+    nnn.enable = true;
+  };
 
   # stylix.targets.helix.enable = false;
   # programs.helix = {
@@ -27,7 +33,6 @@
   # };
 
   # TODO: swaylock, swayidle, ly display manager
-
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -299,7 +304,6 @@
   };
 
   # home.stateVersion = "22.05";
-    home.stateVersion = "24.05";
   home.packages =
     with pkgs;
     # assert unstable.fluffychat.meta.insecure || throw "fluffychat is secure now! enable it!";
@@ -311,6 +315,7 @@
       # nekoray
 
       chromium
+      firefox
       # unstable.telegram-desktop
       # deluge
       # thunderbird
@@ -420,31 +425,29 @@
 
   programs.swaylock.enable = true;
   services.mako.enable = true; # notifications
-  programs.home-manager.enable = true;
-
   gtk.enable = true;
 
   programs.wezterm = {
     enable = true;
-    extraConfig = ''
-      local wezterm = require 'wezterm'
-      return {
-        enable_tab_bar = false,
-        -- color_scheme = "MaterialDesignColors",
-        color_scheme = "Dark Pastel",
-        font_size = 14.1,
-        font = wezterm.font_with_fallback {
-          'JetBrains Mono',
-          'FreeMono',
-        },
-        window_padding = {
-          left = 0,
-          right = 0,
-          top = 0,
-          bottom = 0,
-        },
-      }
-    '';
+    # extraConfig = ''
+    #   local wezterm = require 'wezterm'
+    #   return {
+    #     enable_tab_bar = false,
+    #     -- color_scheme = "MaterialDesignColors",
+    #     color_scheme = "Dark Pastel",
+    #     font_size = 14.1,
+    #     font = wezterm.font_with_fallback {
+    #       'JetBrains Mono',
+    #       'FreeMono',
+    #     },
+    #     window_padding = {
+    #       left = 0,
+    #       right = 0,
+    #       top = 0,
+    #       bottom = 0,
+    #     },
+    #   }
+    # '';
   };
 
   # programs.lazygit.enable = true;
@@ -453,20 +456,19 @@
   #   enable = true;
   #   package = unstable.firefox-devedition-bin;
   #   profiles = rec {
-  #     hofsiedge = {
+  #     alejg = {
   #       id = 0;
   #       search = {
   #         engines = {
   #           "Bing".metaData.hidden = true;
-  #           "Google".metaData.alias = "@g";
+  #           # "Google".metaData.alias = "@g";
   #         };
   #         force = true;
   #       };
   #     };
-  #
-  #     dev-edition-default = hofsiedge // {
-  #       id = 1;
-  #     };
+  #     # dev-edition-default = hofsiedge // {
+  #     #   id = 1;
+  #     # };
   #   };
   # };
 

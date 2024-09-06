@@ -101,10 +101,44 @@
    ];
    
   # fonts
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ]; })
-  ];
 
+fonts.fontDir.enable = true;
+  fonts.packages =
+    # [ linja-sike ]
+    # ++ (with pkgs; [
+    (with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "NerdFontsSymbolsOnly"
+        ];
+      })
+      line-awesome
+      open-sans
+      libertine
+      ipafont
+      kochi-substitute
+      freefont_ttf
+    ]);
+  fonts.fontconfig.defaultFonts = {
+    monospace = [
+      "JetBrainsMono Nerd Font Mono"
+      "IPAGothic"
+      "FreeMono"
+    ];
+    sansSerif = [
+      "Open Sans"
+      "IPAGothic"
+      "FreeSans"
+    ];
+    serif = [
+      "Linux Libertine O"
+      "IPAMincho"
+      "FreeSerif"
+    ];
+  };
+
+  # bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
