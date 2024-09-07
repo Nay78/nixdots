@@ -62,6 +62,7 @@ return {
             "ruff_lsp",
             "rust_analyzer",
             "taplo",
+            -- "nixpkgs-fmt"
           },
         },
       },

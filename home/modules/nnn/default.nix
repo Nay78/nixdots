@@ -23,7 +23,7 @@ in
 
         # ffmpeg
         # ffmpegthumbnailer
-        # (pkgs.writeShellScriptBin "catimg" ''wezterm imgcat "$@"'')
+        (pkgs.writeShellScriptBin "catimg" ''wezterm imgcat "$@"'')
 
         xdragon
 

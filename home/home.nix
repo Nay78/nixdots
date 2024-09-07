@@ -10,6 +10,7 @@
   imports = [
     ./modules/nnn
     # ./modules/helix
+    ./modules/wezterm.nix
   ];
 
   programs.home-manager.enable = true;
@@ -39,7 +40,7 @@
     wrapperFeatures.gtk = true;
     config = rec {
       # bars = [ { command = "waybar"; } ];
-      terminal = "alacritty";
+      terminal = "wezterm";
       modifier = "Mod4";
       # menu = "${pkgs.fuzzel}/bin/fuzzel";
       menu = "${pkgs.rofi}/bin/rofi -show combi";
@@ -95,6 +96,14 @@
     settings.main.dpi-aware = lib.mkForce true;
   };
 
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    extraConfig = ''
+      # used for less common options, intelligently combines if defined in multiple places.
+         # ...
+    '';
+  };
   # programs.yazi = {
   #   enable = true;
   #   enableBashIntegration = true;
@@ -308,6 +317,7 @@
     # assert unstable.fluffychat.meta.insecure || throw "fluffychat is secure now! enable it!";
     [
 
+      vifm-full
       wezterm
       # nvd # nix diffs
       nix-visualize
@@ -340,6 +350,7 @@
       # freecad
       # okular
       # typst
+      htop-vim
 
       pdfcpu
 
@@ -385,10 +396,12 @@
       docker-compose
 
       gtypist
-      pkgs.vial
-      pkgs.via
-      pkgs.keepassxc
 
+      vial
+      qmk
+      via
+      keepassxc
+      dropbox
       # Nvidia stuff. FIXME: fine tune for the new hardware
       # egl-wayland
 
@@ -429,40 +442,41 @@
   programs.lf = {
     enable = true;
     settings = {
-        preview = true;
-        hidden = true;
-        drawbox = true;
-        icons = true;
-        ignorecase = true;
-      };
+      preview = true;
+      hidden = true;
+      drawbox = true;
+      icons = true;
+      ignorecase = true;
     };
+  };
 
   programs.swaylock.enable = true;
   services.mako.enable = true; # notifications
   gtk.enable = true;
 
-  programs.wezterm = {
-    enable = true;
-    # extraConfig = ''
-    #   local wezterm = require 'wezterm'
-    #   return {
-    #     enable_tab_bar = false,
-    #     -- color_scheme = "MaterialDesignColors",
-    #     color_scheme = "Dark Pastel",
-    #     font_size = 14.1,
-    #     font = wezterm.font_with_fallback {
-    #       'JetBrains Mono',
-    #       'FreeMono',
-    #     },
-    #     window_padding = {
-    #       left = 0,
-    #       right = 0,
-    #       top = 0,
-    #       bottom = 0,
-    #     },
-    #   }
-    # '';
-  };
+  # programs.wezterm = {
+  #   enable = true;
+  #   extraConfig = ''
+  #       local wezterm = require 'wezterm'
+  #       return {
+  #         enable_tab_bar = true,
+  #         front_end = "WebGpu", 
+  #         color_scheme = "MaterialDesignColors",
+  #
+  #         font = wezterm.font_with_fallback {
+  #            'JetBrains Mono',
+  #            'FreeMono',
+  #         },
+  #       window_padding = {
+  #            left = 0,
+  #            right = 0,
+  #            top = 0,
+  #            bottom = 0,
+  #       },
+  #       hide_tab_bar_if_only_one_tab = false,
+  #     }
+  #   '';
+  # };
 
   # programs.lazygit.enable = true;
 
@@ -542,35 +556,35 @@
       init.defaultBranch = "main";
     };
   };
-#   programs.gh.enable = true;
-#
-#   programs.bash = {
-#     enable = true;
-#     bashrcExtra = ''
-#       export XDG_DATA_HOME="$HOME/.local/share"
-#       export PS1="\n(''${name:-sys-env}) \[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\n\$\[\033[0m\] "
-#     '';
-#   };
-#
-#   xdg.mimeApps = {
-#     enable = true;
-#     defaultApplications =
-#       with pkgs.lib.attrsets;
-#       concatMapAttrs (name: mimes: genAttrs mimes (_: name + ".desktop")) {
-#         "firefox-developer-edition" = [
-#           "application/pdf"
-#           "x-scheme-handler/http"
-#           "x-scheme-handler/https"
-#           "text/html"
-#           "application/xhtml+xml"
-#           "x-scheme-handler/chrome"
-#           "application/x-extension-htm"
-#           "application/x-extension-html"
-#           "application/x-extension-shtml"
-#           "application/x-extension-xhtml"
-#           "application/x-extension-xht"
-#         ];
-#         "org.telegram.desktop" = [ "x-scheme-handler/tg" ];
-#       };
-#   };
- }
+  #   programs.gh.enable = true;
+  #
+  #   programs.bash = {
+  #     enable = true;
+  #     bashrcExtra = ''
+  #       export XDG_DATA_HOME="$HOME/.local/share"
+  #       export PS1="\n(''${name:-sys-env}) \[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\n\$\[\033[0m\] "
+  #     '';
+  #   };
+  #
+  #   xdg.mimeApps = {
+  #     enable = true;
+  #     defaultApplications =
+  #       with pkgs.lib.attrsets;
+  #       concatMapAttrs (name: mimes: genAttrs mimes (_: name + ".desktop")) {
+  #         "firefox-developer-edition" = [
+  #           "application/pdf"
+  #           "x-scheme-handler/http"
+  #           "x-scheme-handler/https"
+  #           "text/html"
+  #           "application/xhtml+xml"
+  #           "x-scheme-handler/chrome"
+  #           "application/x-extension-htm"
+  #           "application/x-extension-html"
+  #           "application/x-extension-shtml"
+  #           "application/x-extension-xhtml"
+  #           "application/x-extension-xht"
+  #         ];
+  #         "org.telegram.desktop" = [ "x-scheme-handler/tg" ];
+  #       };
+  #   };
+}

@@ -2,34 +2,39 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      #./hyprland.nix
-  #    ./greetd.nix
- #     home-manager.nixosModules.home-manager
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    #./hyprland.nix
+    #    ./greetd.nix
+    #     home-manager.nixosModules.home-manager
+  ];
 
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-  };  
+  };
 
   programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
+    enable = true;
+    defaultEditor = true;
+  };
 
   # sway
   security.polkit.enable = true;
   hardware.graphics.enable = true;
   programs.sway.enable = true;
-  services.gnome.gnome-keyring.enable = true; 
+  services.gnome.gnome-keyring.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -39,7 +44,7 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   networking.wireless.networks = {
     WRT = {
       psk = "cbcb230481";
@@ -65,70 +70,80 @@
   # services.printing.enable = true;
 
   # Enable sound.
-   services.pipewire = {
-     enable = true;
-     pulse.enable = true;
-   };
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
 
- services.logind = {
+  services.logind = {
 
-extraConfig = "HandlePowerKey=suspend";
+    extraConfig = "HandlePowerKey=suspend";
 
-lidSwitch = "suspend";
+    lidSwitch = "suspend";
 
-};
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.alejg = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-     packages = with pkgs; [
-#       firefox
-       tree
-     ];
-   };
+  users.users.alejg = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      #       firefox
+      tree
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-   environment.systemPackages = with pkgs; [
-     alacritty
-     grim
-     mako
-     git
-     pkgs.libinput
-     #pkgs.waybar
-     #pkgs.dunst
-     libnotify  # dunst depends on this
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget
-     gnumake
-     pkgs.libgcc
-     gcc
-     nodejs
-   ];
+  environment.systemPackages = with pkgs; [
+    alacritty
+    grim
+    mako
+    git
+    pkgs.libinput
+    #pkgs.waybar
+    #pkgs.dunst
+    libnotify # dunst depends on this
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    gnumake
+    pkgs.libgcc
+    gcc
+    nodejs
+    cargo
+    unzip
+    ripgrep
+    nixfmt-rfc-style
+  ];
   # fonts
 
-fonts.fontDir.enable = true;
+  fonts.fontDir.enable = true;
   fonts.packages =
     # [ linja-sike ]
     # ++ (with pkgs; [
-    (with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
-      line-awesome
-      open-sans
-      libertine
-      ipafont
-      kochi-substitute
-      freefont_ttf
-    ]);
+    (
+      with pkgs;
+      [
+        (nerdfonts.override {
+          fonts = [
+            "JetBrainsMono"
+            "NerdFontsSymbolsOnly"
+          ];
+        })
+        line-awesome
+        open-sans
+        libertine
+        ipafont
+        kochi-substitute
+        freefont_ttf
+      ]
+    );
   fonts.fontconfig.defaultFonts = {
     monospace = [
       "JetBrainsMono Nerd Font Mono"
@@ -151,15 +166,15 @@ fonts.fontDir.enable = true;
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-    xdg = {
-        portal = {
-            enable = true;
-            extraPortals = with pkgs; [
-                xdg-desktop-portal-wlr
-                xdg-desktop-portal-gtk
-            ];
-        };
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
     };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -205,4 +220,3 @@ fonts.fontDir.enable = true;
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-
