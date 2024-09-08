@@ -57,19 +57,22 @@
         # Screenshot
         Print = ''exec grim -g "$(slurp)" /tmp/$(date +'%H:%M:%S.png')'';
         "Ctrl+Print" = "exec ocr-screenshot";
-
         # Password manager
+
         "${modifier}+p" = "exec keepassxc";
+
+        # power
+        XF86PowerOff = "exec systemctl suspend";
       };
 
       input = {
         # Keyboard
         "*" = {
-          xkb_layout = "latam";
+          xkb_layout = "us";
           # xkb_options = "grp:alt_shift_toggle";
         };
         "1:1:AT_Translated_Set_2_keyboard" = {
-          repeat_delay = "200";
+          repeat_delay = "100";
           repeat_rate = "65";
           xkb_numlock = "enable";
         };
@@ -401,7 +404,7 @@
       qmk
       via
       keepassxc
-      dropbox
+      unstable.dropbox
       # Nvidia stuff. FIXME: fine tune for the new hardware
       # egl-wayland
 

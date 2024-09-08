@@ -18,6 +18,15 @@
     #     home-manager.nixosModules.home-manager
   ];
 
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="100", TAG+="uaccess", TAG+="udev-acl"
+    KERNEL=="hidraw*", MODE="0766"
+  '';
+
+  # services.udev.extraRules = ''
+  #   KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="${toString (lib.getEnv "USER_GID")}", TAG+="uaccess", TAG+="udev-acl"
+  # '';
+  #
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -25,6 +34,7 @@
     '';
   };
 
+  # allowUnfree = true;
   programs.neovim = {
     enable = true;
     defaultEditor = true;
