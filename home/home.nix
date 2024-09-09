@@ -18,6 +18,7 @@
   # home.homeDirectory = "/home/alejg"
 
   home.file.".bashrc".source = ./dotfiles/.bashrc;
+  home.file.".inputrc".source = ./dotfiles/.inputrc;
   home.file.".config/nvim".source = ./dotfiles/nvim;
   # add unstable and tree-sitter-idris to submodule arguments
   # _module.args = {
@@ -40,19 +41,19 @@
     wrapperFeatures.gtk = true;
     config = rec {
       # bars = [ { command = "waybar"; } ];
-      terminal = "wezterm";
+      terminal = "alacritty";
       modifier = "Mod4";
       # menu = "${pkgs.fuzzel}/bin/fuzzel";
       menu = "${pkgs.rofi}/bin/rofi -show combi";
       keybindings = lib.mkOptionDefault {
         # Brightness
-        XF86MonBrightnessDown = ''exec "brightnessctl set 2%-"'';
-        XF86MonBrightnessUp = ''exec "brightnessctl set +2%"'';
+        XF86MonBrightnessDown = ''exec "brightnessctl set 8%-"'';
+        XF86MonBrightnessUp = ''exec "brightnessctl set +8%"'';
 
         # Volume
-        XF86AudioRaiseVolume = ''exec "pactl set-sink-volume @DEFAULT_SINK@ +1%"'';
-        XF86AudioLowerVolume = ''exec "pactl set-sink-volume @DEFAULT_SINK@ -1%"'';
-        XF86AudioMute = ''exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"'';
+        XF86AudioRaiseVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.05-"'';
+        XF86AudioLowerVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.05+"'';
+        XF86AudioMute = ''exec "wpctl set-mute @DEFAULT_SINK@ toggle"'';
 
         # Screenshot
         Print = ''exec grim -g "$(slurp)" /tmp/$(date +'%H:%M:%S.png')'';
@@ -70,11 +71,14 @@
         "*" = {
           xkb_layout = "us";
           # xkb_options = "grp:alt_shift_toggle";
+          repeat_delay = "200";
+          repeat_rate = "65";
         };
         "1:1:AT_Translated_Set_2_keyboard" = {
           repeat_delay = "100";
           repeat_rate = "65";
           xkb_numlock = "enable";
+
         };
         "type:touchpad" = {
           tap = "enabled";
@@ -111,7 +115,9 @@
   #   enable = true;
   #   enableBashIntegration = true;
   # };
-
+  programs.waybar = {
+    enable = true;
+  };
   # programs.waybar = {
   #   enable = true;
   #   settings = {
@@ -179,7 +185,7 @@
   #         };
   #         random-icons = {
   #           off = "<span color=\"#f53c3c\"></span> ";
-  #           on = " ";
+  #           on == " ";
   #         };
   #         repeat-icons = {
   #           "on" = " ";
