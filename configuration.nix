@@ -102,6 +102,9 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "dialout"
+      # "sudo"
+
     ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       #       firefox
