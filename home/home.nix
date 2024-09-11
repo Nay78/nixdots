@@ -47,12 +47,12 @@
       menu = "${pkgs.rofi}/bin/rofi -show combi";
       keybindings = lib.mkOptionDefault {
         # Brightness
-        XF86MonBrightnessDown = ''exec "brightnessctl set 8%-"'';
-        XF86MonBrightnessUp = ''exec "brightnessctl set +8%"'';
+        XF86MonBrightnessDown = ''exec "brightnessctl set 5%-"'';
+        XF86MonBrightnessUp = ''exec "brightnessctl set +5%"'';
 
         # Volume
-        XF86AudioRaiseVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.05-"'';
-        XF86AudioLowerVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.05+"'';
+        XF86AudioRaiseVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.02+"'';
+        XF86AudioLowerVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.02-"'';
         XF86AudioMute = ''exec "wpctl set-mute @DEFAULT_SINK@ toggle"'';
 
         # Screenshot
@@ -335,6 +335,9 @@
 
       chromium
       firefox
+      unstable.vivaldi
+      qutebrowser
+      unstable.google-chrome
       # unstable.telegram-desktop
       # deluge
       # thunderbird
@@ -346,8 +349,7 @@
       libreoffice-fresh
       # media
       krita
-      # (blender.override { cudaSupport = true; })
-      mpv
+      # (blender.override { cudaSupport = true; }) mpv
       vlc
       # (inkscape-with-extensions.override {
       #   inkscapeExtensions = [ inkscape-extensions.applytransforms ];
@@ -411,9 +413,13 @@
       via
       keepassxc
       unstable.dropbox
+      krita
       # Nvidia stuff. FIXME: fine tune for the new hardware
       # egl-wayland
 
+      # development
+      avra
+      pkgsCross.avr.buildPackages.gcc
       # pass-wayland
 
       # unstable.anydesk

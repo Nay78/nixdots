@@ -126,6 +126,7 @@
     pkgs.libgcc
     gcc
     nodejs
+    go
     cargo
     unzip
     ripgrep
