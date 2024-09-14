@@ -123,3 +123,15 @@ vim.keymap.set("n", "<leader>aa", "<cmd>CopilotChatOpen<cr>", { desc = "Toggle v
 -- yanky
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
+
+-- hello world
+-- vim.keymap.set('n', '<c-_>', ':CommentToggle<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<c-/>', 'gc<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-_>', 'gc<CR>')
+
+-- vim.keymap.set("i", "<c-bs>", "dw")
+-- vim.keymap.set("i", "<c-bs>", "dw")
+-- vim.keymap.set("n", "<Up>", "k")
+-- vim.keymap.set("n", "<Down>", "j")
+-- vim.keymap.set("n", "<Left>", "h")
+-- vim.keymap.set("n", "<Up>", "k")

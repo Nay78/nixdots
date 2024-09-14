@@ -11,6 +11,8 @@
     ./modules/nnn
     # ./modules/helix
     ./modules/wezterm.nix
+    ./modules/waybar.nix
+
   ];
 
   programs.home-manager.enable = true;
@@ -40,7 +42,7 @@
     enable = true;
     wrapperFeatures.gtk = true;
     config = rec {
-      # bars = [ { command = "waybar"; } ];
+      bars = [ { command = "waybar"; } ];
       terminal = "alacritty";
       modifier = "Mod4";
       # menu = "${pkgs.fuzzel}/bin/fuzzel";
@@ -115,9 +117,15 @@
   #   enable = true;
   #   enableBashIntegration = true;
   # };
-  programs.waybar = {
-    enable = true;
-  };
+
+  # programs.waybar = {
+  #   enable = true;
+  #   settings = {
+  #     height = 20;
+  #
+  #   }
+  # };
+  #
   # programs.waybar = {
   #   enable = true;
   #   settings = {
@@ -419,6 +427,7 @@
 
       # development
       avra
+      avrdude
       pkgsCross.avr.buildPackages.gcc
       # pass-wayland
 
