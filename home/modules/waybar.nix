@@ -8,7 +8,7 @@
   programs.waybar = {
     enable = true;
     settings = {
-      height = 20;
+      # height = 20;
 
     };
   };

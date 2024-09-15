@@ -128,7 +128,10 @@ vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 -- vim.keymap.set('n', '<c-_>', ':CommentToggle<CR>', { noremap = true, silent = true })
 -- vim.keymap.set('n', '<c-/>', 'gc<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-_>', 'gc<CR>')
+-- <PageDown><PageUp><C-PageDown><C-BS>
 
+vim.keymap.set('n', '<C-PageDown>', '<leader>bP')
+vim.keymap.set('n', '<C-PageUp>', '<leader>bP')
 -- vim.keymap.set("i", "<c-bs>", "dw")
 -- vim.keymap.set("i", "<c-bs>", "dw")
 -- vim.keymap.set("n", "<Up>", "k")

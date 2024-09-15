@@ -21,7 +21,11 @@
 
   home.file.".bashrc".source = ./dotfiles/.bashrc;
   home.file.".inputrc".source = ./dotfiles/.inputrc;
-  home.file.".config/nvim".source = ./dotfiles/nvim;
+
+  home.file.".config/nvim" = {
+    source = ./dotfiles/nvim;
+    recursive = true;
+  };
   # add unstable and tree-sitter-idris to submodule arguments
   # _module.args = {
   #   inherit (inputs) unstable tree-sitter-idris;

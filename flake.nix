@@ -42,10 +42,6 @@
             { networking.hostName = hostname; }
             home-manager.nixosModules.home-manager
             ./home
-            #  {
-            #           home-manager.useGlobalPkgs = true;
-            #           home-manager.useUserPackages = true;
-            #           home-manager.users.alejg = { pkgs, ... }: {
             #             home.username = "alejg";
             #      home.homeDirectory = "/home/alejg";
             #      programs.home-manager.enable = true;
