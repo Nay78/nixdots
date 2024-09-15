@@ -15,6 +15,16 @@
 
   ];
 
+  #  home-manager.users.barroco = {
+  #   services.sxhkd = {
+  #     enable = true;
+  #     keybindings = {
+  #       "super + space" = "rofi -show run";
+  #       "super + Return" = "alacritty";
+  #     };
+  #   };
+  # };
+
   programs.home-manager.enable = true;
   home.stateVersion = "24.05";
   # home.homeDirectory = "/home/alejg"
