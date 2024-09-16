@@ -29,13 +29,13 @@
   home.stateVersion = "24.05";
   # home.homeDirectory = "/home/alejg"
 
-  home.file.".bashrc".source = ./dotfiles/.bashrc;
-  home.file.".inputrc".source = ./dotfiles/.inputrc;
-
-  home.file.".config/nvim" = {
-    source = ./dotfiles/nvim;
-    recursive = true;
-  };
+  # home.file.".bashrc".source = ./dotfiles/.bashrc;
+  # home.file.".inputrc".source = ./dotfiles/.inputrc;
+  #
+  # home.file.".config/nvim" = {
+  #   source = ./dotfiles/nvim;
+  #   recursive = true;
+  # };
   # add unstable and tree-sitter-idris to submodule arguments
   # _module.args = {
   #   inherit (inputs) unstable tree-sitter-idris;
@@ -122,10 +122,10 @@
   programs.tmux = {
     enable = true;
     clock24 = true;
-    extraConfig = ''
-      # used for less common options, intelligently combines if defined in multiple places.
-         # ...
-    '';
+    # extraConfig = ''
+    #   # used for less common options, intelligently combines if defined in multiple places.
+    #      # ...
+    # '';
   };
   # programs.yazi = {
   #   enable = true;
