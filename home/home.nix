@@ -119,14 +119,14 @@
     settings.main.dpi-aware = lib.mkForce true;
   };
 
-  programs.tmux = {
-    enable = true;
-    clock24 = true;
-    # extraConfig = ''
-    #   # used for less common options, intelligently combines if defined in multiple places.
-    #      # ...
-    # '';
-  };
+  # programs.tmux = {
+  #   enable = true;
+  #   clock24 = true;
+  #   extraConfig = ''
+  #     # used for less common options, intelligently combines if defined in multiple places.
+  #        # ...
+  #   '';
+  # };
   # programs.yazi = {
   #   enable = true;
   #   enableBashIntegration = true;
@@ -347,7 +347,8 @@
     with pkgs;
     # assert unstable.fluffychat.meta.insecure || throw "fluffychat is secure now! enable it!";
     [
-
+      tmux
+      lf
       vifm-full
       wezterm
       # nvd # nix diffs
@@ -477,16 +478,16 @@
       })
     ];
 
-  programs.lf = {
-    enable = true;
-    settings = {
-      preview = true;
-      hidden = true;
-      drawbox = true;
-      icons = true;
-      ignorecase = true;
-    };
-  };
+  # programs.lf = {
+  #   enable = true;
+  #   settings = {
+  #     preview = true;
+  #     hidden = true;
+  #     drawbox = true;
+  #     icons = true;
+  #     ignorecase = true;
+  #   };
+  # };
 
   programs.swaylock.enable = true;
   services.mako.enable = true; # notifications
