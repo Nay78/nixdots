@@ -138,3 +138,7 @@ vim.keymap.set("n", "<C-Up>", "{")
 vim.keymap.set("n", "<C-Down>", "}")
 vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
+-- backspace delete word
+vim.keymap.set("i", "<C-BS>", "<C-w>")
+
+
