@@ -1,4 +1,4 @@
-{
+return {
   "echasnovski/mini.ai",
   event = "VeryLazy",
   opts = function()
@@ -32,7 +32,7 @@
         LazyVim.mini.ai_whichkey(opts)
       end)
     end)
-  end,
+  end
 }
 
 -- -- No need to copy this inside `setup()`. Will be used automatically.

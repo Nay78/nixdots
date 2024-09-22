@@ -11,7 +11,11 @@
     ./modules/nnn
     # ./modules/helix
     ./modules/wezterm.nix
-    ./modules/waybar.nix
+
+    ./modules/golang.nix
+
+    # ./modules/wezterm.nix
+    #    ./modules/helix.nix
 
   ];
 
@@ -49,6 +53,9 @@
     with pkgs;
     # assert unstable.fluffychat.meta.insecure || throw "fluffychat is secure now! enable it!";
     [
+
+      tmux
+      waybar
       helix
       wireguard-tools # tools
       openconnect # tools
@@ -250,6 +257,31 @@
     #   workspace 9 output HDMI-A-1
     # '';
   };
+
+  # programs.helix = {
+  #   enable = true;
+  #   settings = {
+  #     theme = "autumn_night_transparent";
+  #     editor.cursor-shape = {
+  #       normal = "block";
+  #       insert = "bar";
+  #       select = "underline";
+  #     };
+  #   };
+  #   languages.language = [
+  #     {
+  #       name = "nix";
+  #       auto-format = true;
+  #       formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+  #     }
+  #   ];
+  #   themes = {
+  #     autumn_night_transparent = {
+  #       "inherits" = "autumn_night";
+  #       "ui.background" = { };
+  #     };
+  #   };
+  # };
 
   programs.fuzzel = {
     enable = true;

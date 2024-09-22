@@ -41,6 +41,11 @@ cmd trash ${{
   %set -f; mv $fx ~/.trash
 }}
 
+cmd chmodx &{{
+	chmod u+x $fx
+	lf -remote "send $id reload"
+}}
+
 cmd help ${{
   printf "\n\n---------------- Selection --------------\n\n"
   printf "[<space>] select\n"
@@ -114,3 +119,4 @@ map A mkdir
 map \$ shellcmd
 map | shell
 map ? help
+map <a-x> chmodx
