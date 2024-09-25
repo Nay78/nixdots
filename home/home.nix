@@ -9,280 +9,168 @@
 {
   imports = [
     ./modules/nnn
-    # ./modules/helix
     ./modules/wezterm.nix
-
     ./modules/golang.nix
-
+    ./modules/sway.nix
+    ./modules/hyprland.nix
     # ./modules/wezterm.nix
     #    ./modules/helix.nix
-
   ];
-
-  #  home-manager.users.barroco = {
-  #   services.sxhkd = {
-  #     enable = true;
-  #     keybindings = {
-  #       "super + space" = "rofi -show run";
-  #       "super + Return" = "alacritty";
-  #     };
-  #   };
-  # };
 
   programs.home-manager.enable = true;
   home.stateVersion = "24.05";
   # home.homeDirectory = "/home/alejg"
 
-  # home.file.".bashrc".source = ./dotfiles/.bashrc;
-  # home.file.".inputrc".source = ./dotfiles/.inputrc;
-  #
-  # home.file.".config/nvim" = {
-  #   source = ./dotfiles/nvim;
-  #   recursive = true;
-  # };
-  # add unstable and tree-sitter-idris to submodule arguments
-  # _module.args = {
-  #   inherit (inputs) unstable tree-sitter-idris;
-  # };
+  home.packages = with pkgs; [
 
-  custom = {
-    nnn.enable = true;
+    hyprland
+    tmux
+    waybar
+    helix
+    wireguard-tools # tools
+    openconnect # tools
+    lf
+    xorg.xev
+    vifm-full
+    wezterm
+    # nvd # nix diffs
+    nix-visualize
+
+    # nekoray
+
+    chromium
+    firefox
+    unstable.vivaldi
+    qutebrowser
+    unstable.google-chrome
+    # unstable.telegram-desktop
+    # deluge
+    # thunderbird
+    # freerdp
+    # remmina
+
+    # nixops
+
+    libreoffice-fresh
+
+    # media
+    krita
+    # (blender.override { cudaSupport = true; }) mpv
+    vlc
+    # (inkscape-with-extensions.override {
+    #   inkscapeExtensions = [ inkscape-extensions.applytransforms ];
+    # })
+    obs-studio
+    # godot_4
+    # kdenlive
+    # kicad
+    # freecad
+    # okular
+    # typst
+    htop-vim
+
+    pdfcpu
+
+    # zettlr
+    # sound & display controls
+    # TODO: use a graph instead (https://github.com/futpib/pagraphcontrol)
+    # TODO: add effects (https://github.com/wwmm/easyeffects)
+    pavucontrol
+    # pulseaudio
+    playerctl
+    brightnessctl
+
+    (unstable.python312.withPackages (
+      ps: with ps; [
+        requests
+        ipython
+      ]
+    ))
+
+    unstable.dbeaver-bin
+
+    unstable.insomnia
+
+    # sway modules
+    swayidle
+    wl-clipboard
+    grim # screenshot
+    slurp # screenshot
+
+    libnotify
+
+    # preview Markdown
+    python312Packages.grip
+
+    anki-bin
+
+    # leafpad
+    # gotop
+    # tree
+    # cloc
+    # jq
+    # superfile
+
+    docker-compose
+
+    gtypist
+
+    vial
+    qmk
+    via
+    keepassxc
+    unstable.dropbox
+    krita
+    # Nvidia stuff. FIXME: fine tune for the new hardware
+    # egl-wayland
+
+    # development
+    avra
+    avrdude
+    pkgsCross.avr.buildPackages.gcc
+    # pass-wayland
+
+    # unstable.anydesk
+
+    # FIXME: this should be a shell within nix store on build.
+    # (pkgs.writeShellScriptBin "go-playground" ''
+    #   cd $HOME/Projects/misc/go-playground
+    #   nix develop --offline --command $EDITOR code.go
+    # '')
+
+    (pkgs.writeShellApplication {
+      name = "ocr-screenshot";
+      runtimeInputs = with pkgs; [
+        grim
+        slurp
+        tesseract
+        wl-clipboard
+        libnotify
+      ];
+      text = ''
+        grim -g "$(slurp)" /tmp/ocr.png \
+        && tesseract \
+          -c preserve_interword_spaces=1 "$@" /tmp/ocr.png stdout \
+          -l eng+rus+deu+jpn \
+        |  wl-copy \
+        && notify-send \
+          --expire-time 5000 \
+          --urgency low \
+          "OCR complete" \
+          "Result copied to the clipboard"
+      '';
+    })
+  ];
+
+  xdg.desktopEntries.ocr = {
+    name = "OCR image";
+    exec = "${pkgs.writeScript "ocr" ''
+      ${pkgs.xfce.xfce4-screenshooter}/bin/xfce4-screenshooter -r --save /tmp/ocr-tmp.png
+      ${pkgs.tesseract}/bin/tesseract /tmp/ocr-tmp.png /tmp/ocr-out
+      cat /tmp/ocr-out.txt | ${pkgs.xclip}/bin/xclip -sel clip
+      rm /tmp/ocr-tmp.png
+    ''}";
   };
-
-  home.packages =
-    with pkgs;
-    # assert unstable.fluffychat.meta.insecure || throw "fluffychat is secure now! enable it!";
-    [
-
-      tmux
-      waybar
-      helix
-      wireguard-tools # tools
-      openconnect # tools
-      lf
-      xorg.xev
-      vifm-full
-      wezterm
-      # nvd # nix diffs
-      nix-visualize
-
-      # nekoray
-
-      chromium
-      firefox
-      unstable.vivaldi
-      qutebrowser
-      unstable.google-chrome
-      # unstable.telegram-desktop
-      # deluge
-      # thunderbird
-      # freerdp
-      # remmina
-
-      # nixops
-
-      libreoffice-fresh
-
-      # media
-      krita
-      # (blender.override { cudaSupport = true; }) mpv
-      vlc
-      # (inkscape-with-extensions.override {
-      #   inkscapeExtensions = [ inkscape-extensions.applytransforms ];
-      # })
-      obs-studio
-      # godot_4
-      # kdenlive
-      # kicad
-      # freecad
-      # okular
-      # typst
-      htop-vim
-
-      pdfcpu
-
-      # zettlr
-      # sound & display controls
-      # TODO: use a graph instead (https://github.com/futpib/pagraphcontrol)
-      # TODO: add effects (https://github.com/wwmm/easyeffects)
-      pavucontrol
-      # pulseaudio
-      playerctl
-      brightnessctl
-
-      (unstable.python312.withPackages (
-        ps: with ps; [
-          requests
-          ipython
-        ]
-      ))
-
-      unstable.dbeaver-bin
-
-      unstable.insomnia
-
-      # sway modules
-      swayidle
-      wl-clipboard
-      grim # screenshot
-      slurp # screenshot
-
-      libnotify
-
-      # preview Markdown
-      python312Packages.grip
-
-      anki-bin
-
-      # leafpad
-      # gotop
-      # tree
-      # cloc
-      # jq
-      # superfile
-
-      docker-compose
-
-      gtypist
-
-      vial
-      qmk
-      via
-      keepassxc
-      unstable.dropbox
-      krita
-      # Nvidia stuff. FIXME: fine tune for the new hardware
-      # egl-wayland
-
-      # development
-      avra
-      avrdude
-      pkgsCross.avr.buildPackages.gcc
-      # pass-wayland
-
-      # unstable.anydesk
-
-      # FIXME: this should be a shell within nix store on build.
-      # (pkgs.writeShellScriptBin "go-playground" ''
-      #   cd $HOME/Projects/misc/go-playground
-      #   nix develop --offline --command $EDITOR code.go
-      # '')
-
-      (pkgs.writeShellApplication {
-        name = "ocr-screenshot";
-        runtimeInputs = with pkgs; [
-          grim
-          slurp
-          tesseract
-          wl-clipboard
-          libnotify
-        ];
-        text = ''
-          grim -g "$(slurp)" /tmp/ocr.png \
-          && tesseract \
-            -c preserve_interword_spaces=1 "$@" /tmp/ocr.png stdout \
-            -l eng+rus+deu+jpn \
-          |  wl-copy \
-          && notify-send \
-            --expire-time 5000 \
-            --urgency low \
-            "OCR complete" \
-            "Result copied to the clipboard"
-        '';
-      })
-    ];
-
-  # TODO: swaylock, swayidle, ly display manager
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    config = rec {
-      bars = [ { command = "waybar"; } ];
-      terminal = "alacritty";
-      modifier = "Mod4";
-      # menu = "${pkgs.fuzzel}/bin/fuzzel";
-      menu = "${pkgs.rofi}/bin/rofi -show combi";
-      keybindings = lib.mkOptionDefault {
-        # Brightness
-        XF86MonBrightnessDown = ''exec "brightnessctl set 5%-"'';
-        XF86MonBrightnessUp = ''exec "brightnessctl set +5%"'';
-
-        # Volume
-        XF86AudioRaiseVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.02+"'';
-        XF86AudioLowerVolume = ''exec "wpctl set-volume @DEFAULT_SINK@ 0.02-"'';
-        XF86AudioMute = ''exec "wpctl set-mute @DEFAULT_SINK@ toggle"'';
-        XF86AudioNext = ''exec "playerctl next"'';
-        XF86AudioPrev = ''exec "playerctl previous"'';
-        XF86AudioPlay = ''exec "playerctl play-pause"'';
-
-        # Screenshot
-        Print = ''exec grim -g "$(slurp)" /tmp/$(date +'%H:%M:%S.png')'';
-        "Ctrl+Print" = "exec ocr-screenshot";
-        # Password manager
-
-        "${modifier}+p" = "exec keepassxc";
-
-        # power
-        XF86PowerOff = "exec systemctl suspend";
-      };
-
-      input = {
-        # Keyboard
-        "*" = {
-          xkb_layout = "us";
-          # xkb_options = "grp:alt_shift_toggle";
-          repeat_delay = "200";
-          repeat_rate = "65";
-        };
-        "1:1:AT_Translated_Set_2_keyboard" = {
-          repeat_delay = "100";
-          repeat_rate = "65";
-          xkb_numlock = "enable";
-
-        };
-        "type:touchpad" = {
-          tap = "enabled";
-          natural_scroll = "enabled";
-          scroll_factor = "0.5";
-          dwt = "disabled";
-        };
-        # TODO
-        # "1386:890:Wacom_One_by_Wacom_S_Pen" = { };
-      };
-    };
-    # extraOptions = [ "--unsupported-gpu" ];
-    # TODO: migrate to config
-    # extraConfig = ''
-    #   # HDMI workspace 9
-    #   workspace 9 output HDMI-A-1
-    # '';
-  };
-
-  # programs.helix = {
-  #   enable = true;
-  #   settings = {
-  #     theme = "autumn_night_transparent";
-  #     editor.cursor-shape = {
-  #       normal = "block";
-  #       insert = "bar";
-  #       select = "underline";
-  #     };
-  #   };
-  #   languages.language = [
-  #     {
-  #       name = "nix";
-  #       auto-format = true;
-  #       formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
-  #     }
-  #   ];
-  #   themes = {
-  #     autumn_night_transparent = {
-  #       "inherits" = "autumn_night";
-  #       "ui.background" = { };
-  #     };
-  #   };
-  # };
-
   programs.fuzzel = {
     enable = true;
     settings.main.dpi-aware = lib.mkForce true;
@@ -448,4 +336,8 @@
   #   enablebashintegration = true;
   # };
   #   };
+
+  # custom = {
+  #   nnn.enable = true;
+  # };
 }

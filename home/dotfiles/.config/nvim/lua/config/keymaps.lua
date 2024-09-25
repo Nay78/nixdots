@@ -112,7 +112,7 @@ vim.keymap.set("n", "<leader>tt", '<cmd>ToggleTerm cmd="btm" direction=vertical<
 vim.keymap.set("n", "ñ", ":", { desc = "Close terminal" })
 
 -- CopilotChat
-vim.keymap.set("n", "<leader>aa", "<cmd>CopilotChatOpen<cr>", { desc = "Toggle vertical copilot chat" })
+vim.keymap.set("n", "<leader>av", "<cmd>CopilotChatOpen<cr>", { desc = "Toggle vertical copilot chat" })
 
 -- surround
 -- vim.keymap.set("n", "<CR>", "<cmd>Surround<cr>", { desc = "Surround" })
@@ -138,6 +138,13 @@ vim.keymap.set("n", "<C-Up>", "{")
 vim.keymap.set("n", "<C-Down>", "}")
 vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
+
+-- arrow resize
+vim.keymap.set("n", "<A-Up>", ":resize +2<CR>")
+vim.keymap.set("n", "<A-Down>", ":resize -2<CR>")
+vim.keymap.set("n", "<A-Left>", ":vertical resize +2<CR>")
+vim.keymap.set("n", "<A-Right>", ":vertical resize -2<CR>")
+
 -- backspace delete word
 vim.keymap.set("i", "<C-BS>", "<C-w>")
 

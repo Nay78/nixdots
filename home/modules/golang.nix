@@ -2,49 +2,81 @@
   config,
   lib,
   pkgs ? import <nixpkgs> { },
-  buildGoModule,
-  fetchFromGithub,
+  # buildGoModule,
+  # fetchFromGitHub,
   ...
 }:
-with lib;
-
-let
-  cfg = config.module.dev.golang;
-in
 {
-  options.module.dev.golang = {
-    enable = mkEnableOption "Golang module";
+
+  programs.go = {
+    enable = true;
+    # package = pkgs.go_1_20;
   };
+  # sway-scripts = pkgs.buildGoModule rec {
+  #   name = "sway-scripts";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "kndndrj";
+  #     repo = "sway-scripts";
+  #     rev = "master";
+  #     # sha256 = "108s1vjxbivpd1mvrj615khalbv8f2haszh4zyvi451kdrcakpv6";
+  #   };
+  #   vendorHash = null;
+  # };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      golangci-lint
-      gopls
-      gotestsum
-      mockgen
-    ];
-
-    programs.go = {
-      enable = true;
-      # package = pkgs.go_1_20;
-    };
-
-    pkg = (
-      buildGoModule {
-        name = "sway-scripts";
-        src = fetchFromGitHub {
-          owner = "kndndrj";
-          repo = "sway-scripts";
-          rev = "master";
-          # sha256 = "108s1vjxbivpd1mvrj615khalbv8f2haszh4zyvi451kdrcakpv6";
-        };
-        vendorHash = null;
-      }
-    );
-
-  };
 }
 
+# with lib;
+#
+# let
+#   # cfg = config.module.dev.golang;
+#   cfg = {
+#     enable = true;
+#   };
+# in
+# {
+#   # options.module.dev.golang = {
+#   #   enable = mkEnableOption "Golang module";
+#   # };
+#
+#   config = mkIf cfg.enable {
+#     home.packages = with pkgs; [
+#       golangci-lint
+#       gopls
+#       gotestsum
+#       mockgen
+#     ];
+#
+#     programs.go = {
+#       enable = true;
+#       # package = pkgs.go_1_20;
+#     };
+#
+#     sway-scripts = buildGoModule = {
+#       name = "sway-scripts";
+#       src = fetchFromGitHub {
+#         owner = "kndndrj";
+#         repo = "sway-scripts";
+#         rev = "master";
+#         # sha256 = "108s1vjxbivpd1mvrj615khalbv8f2haszh4zyvi451kdrcakpv6";
+#       };
+#       vendorHash = null;
+#     };
+#     # pkg = (
+#     #   pkgs.buildGoModule {
+#     #     name = "sway-scripts";
+#     #     src = fetchFromGitHub {
+#     #       owner = "kndndrj";
+#     #       repo = "sway-scripts";
+#     #       rev = "master";
+#     #       # sha256 = "108s1vjxbivpd1mvrj615khalbv8f2haszh4zyvi451kdrcakpv6";
+#     #     };
+#     #     vendorHash = null;
+#     #   }
+#     # );
+#
+#   };
+# }
+#
 # {
 #   pkgs,
 #   lib,
