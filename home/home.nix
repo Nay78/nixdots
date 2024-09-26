@@ -18,6 +18,7 @@
   ];
 
   programs.home-manager.enable = true;
+  programs.fish.enable = true;
   home.stateVersion = "24.05";
   # home.homeDirectory = "/home/alejg"
 
@@ -37,6 +38,7 @@
     nix-visualize
 
     # nekoray
+    starship
 
     chromium
     firefox
@@ -171,10 +173,11 @@
       rm /tmp/ocr-tmp.png
     ''}";
   };
-  programs.fuzzel = {
-    enable = true;
-    settings.main.dpi-aware = lib.mkForce true;
-  };
+
+  # programs.fuzzel = {
+  #   enable = true;
+  #   settings.main.dpi-aware = lib.mkForce true;
+  # };
 
   # programs.lf = {
   #   enable = true;

@@ -13,6 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./nixos/hyprland.nix
     #./hyprland.nix
     #    ./greetd.nix
     #     home-manager.nixosModules.home-manager
@@ -23,10 +24,6 @@
     KERNEL=="hidraw*", MODE="0766"
   '';
 
-  # services.udev.extraRules = ''
-  #   KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="${toString (lib.getEnv "USER_GID")}", TAG+="uaccess", TAG+="udev-acl"
-  # '';
-  #
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -39,6 +36,9 @@
     enable = true;
     defaultEditor = true;
   };
+  # programs.hyprland.enable = true;
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 
   # sway
   security.polkit.enable = true;
