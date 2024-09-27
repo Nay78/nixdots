@@ -13,7 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./nixos/hyprland.nix
+    # ./nixos/hyprland.nix
     #./hyprland.nix
     #    ./greetd.nix
     #     home-manager.nixosModules.home-manager
@@ -30,7 +30,14 @@
       experimental-features = nix-command flakes
     '';
   };
-
+  # nixpkgs = {
+  #   config = {
+  #     allowUnfree = true;
+  #     packageOverrides = pkgs: {
+  #       unstable = import (fetchTarball "channel:nixos-unstable") { config = config.nixpkgs.config; };
+  #     };
+  #   };
+  # };
   # allowUnfree = true;
   programs.neovim = {
     enable = true;
@@ -86,11 +93,8 @@
   };
 
   services.logind = {
-
     extraConfig = "HandlePowerKey=suspend";
-
     lidSwitch = "suspend";
-
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -121,22 +125,26 @@
     stow
     grim
     mako
-    git
+    # git
     pkgs.libinput
     #pkgs.waybar
     #pkgs.dunst
     libnotify # dunst depends on this
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    gnumake
-    pkgs.libgcc
-    gcc
-    nodejs
-    go
-    cargo
+    # gnumake
+    # gcc
+    # nodejs
+    # go
+    # cargo
     unzip
     ripgrep
-    nixfmt-rfc-style
+    # nixfmt-rfc-style
+    # xdg-desktop-portal-gnome
+    # xdg-desktop-portal-gtk
+    # xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-kde
+    # xdg-desktop-portal-wlr
   ];
   # fonts
 
@@ -189,6 +197,7 @@
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
+        # xdg-desktop-portal-hyprland
       ];
     };
   };

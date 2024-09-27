@@ -23,7 +23,7 @@
   # home.homeDirectory = "/home/alejg"
 
   home.packages = with pkgs; [
-
+    rofi
     hyprland
     tmux
     waybar

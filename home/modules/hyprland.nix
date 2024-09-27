@@ -10,7 +10,7 @@
   #
   #   # Optional
   #   # Whether to enable hyprland-session.target on hyprland startup
-  #   systemd.enable = true;
+  #   # systemd.enable = true;
   # };
 
   # programs.hyprland.enable = true;
@@ -18,7 +18,7 @@
   # environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 
   # environment.variables.NIXOS_OZONE_WL = "1";
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
 
     hyprland
     blueberry
