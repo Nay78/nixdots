@@ -14,11 +14,11 @@
     # ./modules/nnn
     # ./modules/wezterm.nix
     ./modules/golang.nix
-    ./modules/sway.nix
-    ./modules/hyprland.nix 
-    ./modules/nvim.nix 
+    ./modules/wayland/sway.nix
+    ./modules/wayland/hyprland.nix
+    ./modules/nvim.nix
     # ./modules/wezterm.nix
-    #    ./modules/helix.nix
+    ./modules/helix.nix
   ];
 
   programs.home-manager.enable = true;
@@ -27,17 +27,13 @@
   # home.homeDirectory = "/home/alejg"
 
   home.packages = with pkgs; [
-    cmake
-    hyprland
+    zathura
     tmux
-    waybar
-    helix
     wireguard-tools # tools
     openconnect # tools
     lf
     xorg.xev
     vifm-full
-    wezterm
     # nvd # nix diffs
     nix-visualize
 
@@ -93,7 +89,6 @@
     ))
 
     unstable.dbeaver-bin
-
     unstable.insomnia
 
     # sway modules
@@ -176,50 +171,6 @@
       rm /tmp/ocr-tmp.png
     ''}";
   };
-
-  # programs.fuzzel = {
-  #   enable = true;
-  #   settings.main.dpi-aware = lib.mkForce true;
-  # };
-
-  # programs.lf = {
-  #   enable = true;
-  #   settings = {
-  #     preview = true;
-  #     hidden = true;
-  #     drawbox = true;
-  #     icons = true;
-  #     ignorecase = true;
-  #   };
-  # };
-
-  programs.swaylock.enable = true;
-  services.mako.enable = true; # notifications
-  gtk.enable = true;
-
-  # programs.wezterm = {
-  #   enable = true;
-  #   extraConfig = ''
-  #       local wezterm = require 'wezterm'
-  #       return {
-  #         enable_tab_bar = true,
-  #         front_end = "WebGpu", 
-  #         color_scheme = "MaterialDesignColors",
-  #
-  #         font = wezterm.font_with_fallback {
-  #            'JetBrains Mono',
-  #            'FreeMono',
-  #         },
-  #       window_padding = {
-  #            left = 0,
-  #            right = 0,
-  #            top = 0,
-  #            bottom = 0,
-  #       },
-  #       hide_tab_bar_if_only_one_tab = false,
-  #     }
-  #   '';
-  # };
 
   # programs.lazygit.enable = true;
 
