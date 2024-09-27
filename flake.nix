@@ -1,4 +1,4 @@
-# /etc/nixos/flake.nix
+
 {
   description = "1st flake";
 
@@ -23,7 +23,10 @@
     # outputs = { self, nixpkgs, home-manager, unstable, ... }@inputs: 
 
     let
-      system = "x86_64-linux"; # current system
+      inherit (import ./variables.nix) hostname system username;
+      # system = "x86_64-linux"; # current system
+      # username = "alejg";
+      #
       # pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
       # lib = nixpkgs.lib;
 
@@ -49,7 +52,7 @@
             { networking.hostName = hostname; }
             home-manager.nixosModules.home-manager
             ./home
-            ./nixos/hyprland.nix
+            # ./nixos/hyprland.nix
             #             home.username = "alejg";
             #      home.homeDirectory = "/home/alejg";
             #      programs.home-manager.enable = true;

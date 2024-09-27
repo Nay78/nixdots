@@ -6,13 +6,16 @@
   self,
   ...
 }@inputs:
+# let
+#       inherit (import ../variables.nix) hostname system username;
+# in
 {
   imports = [
     ./modules/nnn
     ./modules/wezterm.nix
     ./modules/golang.nix
     ./modules/sway.nix
-    ./modules/hyprland.nix
+    ./modules/hyprland.nix 
     # ./modules/wezterm.nix
     #    ./modules/helix.nix
   ];
@@ -23,7 +26,7 @@
   # home.homeDirectory = "/home/alejg"
 
   home.packages = with pkgs; [
-    rofi
+    cmake
     hyprland
     tmux
     waybar
@@ -74,13 +77,13 @@
     pdfcpu
 
     # zettlr
-    # sound & display controls
+    # sound & display ccontrols
     # TODO: use a graph instead (https://github.com/futpib/pagraphcontrol)
     # TODO: add effects (https://github.com/wwmm/easyeffects)
-    pavucontrol
+    # pavucontrol
     # pulseaudio
     playerctl
-    brightnessctl
+    # brightnessctl
 
     (unstable.python312.withPackages (
       ps: with ps; [

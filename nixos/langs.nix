@@ -23,5 +23,6 @@
     unzip
     ripgrep
     nixfmt-rfc-style
+    cmake
   ];
 }

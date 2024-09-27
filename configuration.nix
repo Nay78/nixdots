@@ -8,13 +8,15 @@
   pkgs,
   ...
 }:
-
+let
+      inherit (import ./variables.nix) hostname system username;
+in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # ./nixos/hyprland.nix
-    #./hyprland.nix
+    # ./nixos/sddm.nix
+    # ./hyprland.nix
     #    ./greetd.nix
     #     home-manager.nixosModules.home-manager
   ];
@@ -44,8 +46,8 @@
     defaultEditor = true;
   };
   # programs.hyprland.enable = true;
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  # environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 
   # sway
   security.polkit.enable = true;
@@ -101,7 +103,7 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.alejg = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
