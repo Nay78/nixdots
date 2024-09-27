@@ -52,6 +52,7 @@
             { networking.hostName = hostname; }
             home-manager.nixosModules.home-manager
             ./home
+            ./nixos/programming.nix
             # ./nixos/hyprland.nix
             #             home.username = "alejg";
             #      home.homeDirectory = "/home/alejg";

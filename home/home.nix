@@ -11,11 +11,12 @@
 # in
 {
   imports = [
-    ./modules/nnn
-    ./modules/wezterm.nix
+    # ./modules/nnn
+    # ./modules/wezterm.nix
     ./modules/golang.nix
     ./modules/sway.nix
     ./modules/hyprland.nix 
+    ./modules/nvim.nix 
     # ./modules/wezterm.nix
     #    ./modules/helix.nix
   ];
@@ -82,7 +83,6 @@
     # TODO: add effects (https://github.com/wwmm/easyeffects)
     # pavucontrol
     # pulseaudio
-    playerctl
     # brightnessctl
 
     (unstable.python312.withPackages (

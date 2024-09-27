@@ -6,10 +6,9 @@
   ...
 }:
 let
-      inherit (import ./variables.nix) hostname system username;
+      inherit (import ../../variables.nix) hostname system username;
   in
 {
-  home-manager.users.${username} = {
     home = {
       packages = with pkgs; [
         dconf
@@ -21,7 +20,7 @@ let
         package = pkgs.bibata-cursors;
         size = 24;
         gtk.enable = true;
-        x11.enable = true;
+        # x11.enable = true;
       };
     };
 
@@ -51,5 +50,4 @@ let
         };
       };
     };
-  };
 }

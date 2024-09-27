@@ -112,7 +112,10 @@ libsForQt5.kwayland-integration
     libsForQt5.qt5.qtwayland qt5ct
     gsettings-qt
 
-    gtk2 gtk3 gtk4 tela-circle-icon-theme
+    # gtk2
+    gtk3 gtk4 
+    # tela-circle-icon-theme
+
 
 # --------------------------------------------------- // Applications
 # firefox                                                # browser
