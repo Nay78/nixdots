@@ -17,8 +17,9 @@
     ./modules/wayland/sway.nix
     ./modules/wayland/hyprland.nix
     ./modules/nvim.nix
+    ./modules/gbar.nix
     # ./modules/wezterm.nix
-    ./modules/helix.nix
+    # ./modules/helix.nix
   ];
 
   programs.home-manager.enable = true;
@@ -172,7 +173,7 @@
     ''}";
   };
 
-  # programs.lazygit.enable = true;
+  programs.lazygit.enable = true;
 
   # programs.firefox = {
   #   enable = true;
