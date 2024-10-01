@@ -79,7 +79,7 @@ change_volume() {
             ;;
     esac
     
-    notify_vol
+    # notify_vol
 }
 
 toggle_mute() {

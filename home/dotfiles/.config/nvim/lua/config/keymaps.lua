@@ -127,11 +127,11 @@ vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 -- hello world
 -- vim.keymap.set('n', '<c-_>', ':CommentToggle<CR>', { noremap = true, silent = true })
 -- vim.keymap.set('n', '<c-/>', 'gc<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-_>', 'gc<CR>')
+vim.keymap.set("n", "<C-_>", "gc<CR>")
 -- <PageDown><PageUp><C-PageDown><C-BS>
 
-vim.keymap.set('n', '<C-PageDown>', '<leader>bP')
-vim.keymap.set('n', '<C-PageUp>', '<leader>bP')
+vim.keymap.set("n", "<C-PageDown>", "<leader>bP")
+vim.keymap.set("n", "<C-PageUp>", "<leader>bP")
 -- vim.keymap.set("i", "<c-bs>", "dw")
 -- vim.keymap.set("i", "<c-bs>", "dw")
 vim.keymap.set("n", "<C-Up>", "{")
@@ -140,12 +140,19 @@ vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
 
 -- arrow resize
-vim.keymap.set("n", "<A-Up>", ":resize +2<CR>")
-vim.keymap.set("n", "<A-Down>", ":resize -2<CR>")
-vim.keymap.set("n", "<A-Left>", ":vertical resize +2<CR>")
-vim.keymap.set("n", "<A-Right>", ":vertical resize -2<CR>")
+vim.keymap.set("n", "<A-Up>", ":resize +3<CR>")
+vim.keymap.set("n", "<A-Down>", ":resize -3<CR>")
+vim.keymap.set("n", "<A-Left>", ":vertical resize +3<CR>")
+vim.keymap.set("n", "<A-Right>", ":vertical resize -3<CR>")
+
+-- arrow move
+vim.keymap.set("n", "<S-Up>", ":resize +3<CR>")
+vim.keymap.set("n", "<S-Down>", ":resize -3<CR>")
+vim.keymap.set("n", "<S-Left>", ":vertical resize +3<CR>")
+vim.keymap.set("n", "<S-Right>", ":vertical resize -3<CR>")
 
 -- backspace delete word
 vim.keymap.set("i", "<C-BS>", "<C-w>")
 
-
+vim.keymap.set("n", "<C-PageDown>", ":BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<C-PageUp>", ":BufferLineCyclePrev<CR>")

@@ -1,4 +1,3 @@
-# credit: HOFSIEDGE
 {
   pkgs,
   lib,
@@ -17,7 +16,7 @@
     ./modules/wayland/sway.nix
     ./modules/wayland/hyprland.nix
     ./modules/nvim.nix
-    ./modules/gbar.nix
+    # ./modules/gbar.nix
     # ./modules/wezterm.nix
     # ./modules/helix.nix
   ];
@@ -28,6 +27,8 @@
   # home.homeDirectory = "/home/alejg"
 
   home.packages = with pkgs; [
+    qalculate-gtk
+    yt-dlp
     zathura
     tmux
     wireguard-tools # tools
@@ -60,6 +61,7 @@
     krita
     # (blender.override { cudaSupport = true; }) mpv
     vlc
+    mpv
     # (inkscape-with-extensions.override {
     #   inkscapeExtensions = [ inkscape-extensions.applytransforms ];
     # })

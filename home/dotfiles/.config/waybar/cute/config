@@ -1,6 +1,6 @@
 {
     "layer": "top",
-    "position": "top",
+    "position": "bottom",
     "modules-left": ["custom/media"],
     "modules-right": ["custom/keyboard", "network", "battery", "pulseaudio", "clock", "custom/quit"],
     "clock": {

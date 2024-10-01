@@ -4,7 +4,7 @@
   {
     "output": "eDP-1",
     "include": "~/.config/waybar/config-global.jsonc",
-    "position": "left",
+    "position": "bottom",
 
     "modules-left": [
       "idle_inhibitor",
