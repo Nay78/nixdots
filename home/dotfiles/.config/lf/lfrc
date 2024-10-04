@@ -1,8 +1,23 @@
 ######################## Settings
-set shell /bin/zsh
-set hidden true
+# set shell /bin/zsh
+# set hidden true
 set ignorecase true
 set icons true
+set reverse
+setlocal ~/Downloads/ sortby ctime
+
+set sortby ctime
+set info ctime 
+
+# previewer
+set previewer lf-previewer
+set cleaner lf-cleaner
+
+map q quitcd
+cmd quitcd ${{
+	echo "1" > "$LF_TEMPDIR"/cdtolastdir
+	lf -remote "send $id quit"
+}}
 
 ######################## Commands
 # Mkdir
@@ -14,6 +29,13 @@ cmd mkdir ${{
 
 # Touch
 cmd touch ${{
+  printf "File name: \n"
+  read ans
+  #$EDITOR $ans
+  touch $ans
+}}
+
+cmd comm ${{
   printf "File name: \n"
   read ans
   #$EDITOR $ans
@@ -46,57 +68,61 @@ cmd chmodx &{{
 	lf -remote "send $id reload"
 }}
 
-cmd help ${{
-  printf "\n\n---------------- Selection --------------\n\n"
-  printf "[<space>] select\n"
-  printf "[v] invert selection\n"
-  printf "[u] unmark all selections\n"
-  printf "[c] clear copied or cut files\n"
-  printf "\n\n---------------- Modify --------------\n\n"
-  printf "[a] touch\n"
-  printf "[A] mkdir\n"
-  printf "[d] trash\n"
-  printf "[D] delete\n"
-  printf "[p] paste\n"
-  printf "[x] cut\n"
-  printf "[y] copy\n"
-  printf "\n\n----------------- Open --------------\n\n"
-  printf "[S] open $f\n"
-  printf "[e] Edit with Nvim\n"
-  printf "[E] Edit with Helix\n"
-  printf "[C] Edit with Code\n"
-  printf "\n\n----------------- Filter, Search, Sort --------------\n\n"
-  printf "[/] search for input (move forward [n], backward [N])\n"
-  printf "[:setfilter $] filter by $\n"
-  printf "[s] sortBy $f\n"
-  printf "\n\n----------------- Shell --------------\n\n"
-  printf "[$] shellcmd (with output shown)\n"
-  printf "[%] shellcmd while piping the input from the ui and output to the ui\n"
-  printf "[|] shell (output hidden)\n"
-  printf "[!] shellwait (with output shown, waits for button to be pressed to go back to the ui)\n"
-  printf "[&] shellasync (runs command in the background)\n"
-  printf "\n\n----------------- Movement --------------\n\n"
-  printf "[hjkl] move\n"
-  printf "[<c-u>] half page up\n"
-  printf "[<c-d>] half page down\n"
-  printf "[<c-b>] page up\n"
-  printf "[<c-f>] page down\n"
-  printf "[gg] go top\n"
-  printf "[gh] go home (cd ~)\n"
-  printf "[G] go bottom\n"
-  printf "\n\n----------------- Commands --------------\n\n"
-  printf "[:] command pallete\n"
-  printf "[z] toggle (.hidden files, time, size, reverseOrder)\n\n"
-  printf "[.] toggle .hidden files\n"
-  printf "[R] reload\n"
-  printf "[q] Quit"
-  printf "[c-g] lazygit"
-  printf "[?] help\n"
-  printf "\n"
-  printf "press <enter> key to continue\n"
-  read ans
-}}
+# cmd help ${{
+#   printf "\n\n---------------- Selection --------------\n\n"
+#   printf "[<space>] select\n"
+#   printf "[v] invert selection\n"
+#   printf "[u] unmark all selections\n"
+#   printf "[c] clear copied or cut files\n"
+#   printf "\n\n---------------- Modify --------------\n\n"
+#   printf "[a] touch\n"
+#   printf "[A] mkdir\n"
+#   printf "[d] trash\n"
+#   printf "[D] delete\n"
+#   printf "[p] paste\n"
+#   printf "[x] cut\n"
+#   printf "[y] copy\n"
+#   printf "\n\n----------------- Open --------------\n\n"
+#   printf "[S] open $f\n"
+#   printf "[e] Edit with Nvim\n"
+#   printf "[E] Edit with Helix\n"
+#   printf "[C] Edit with Code\n"
+#   printf "\n\n----------------- Filter, Search, Sort --------------\n\n"
+#   printf "[/] search for input (move forward [n], backward [N])\n"
+#   printf "[:setfilter $] filter by $\n"
+#   printf "[s] sortBy $f\n"
+#   printf "\n\n----------------- Shell --------------\n\n"
+#   printf "[$] shellcmd (with output shown)\n"
+#   printf "[%] shellcmd while piping the input from the ui and output to the ui\n"
+#   printf "[|] shell (output hidden)\n"
+#   printf "[!] shellwait (with output shown, waits for button to be pressed to go back to the ui)\n"
+#   printf "[&] shellasync (runs command in the background)\n"
+#   printf "\n\n----------------- Movement --------------\n\n"
+#   printf "[hjkl] move\n"
+#   printf "[<c-u>] half page up\n"
+#   printf "[<c-d>] half page down\n"
+#   printf "[<c-b>] page up\n"
+#   printf "[<c-f>] page down\n"
+#   printf "[gg] go top\n"
+#   printf "[gh] go home (cd ~)\n"
+#   printf "[G] go bottom\n"
+#   printf "\n\n----------------- Commands --------------\n\n"
+#   printf "[:] command pallete\n"
+#   printf "[z] toggle (.hidden files, time, size, reverseOrder)\n\n"
+#   printf "[.] toggle .hidden files\n"
+#   printf "[R] reload\n"
+#   printf "[q] Quit"
+#   printf "[c-g] lazygit"
+#   printf "[?] help\n"
+#   printf "\n"
+#   printf "press <enter> key to continue\n"
+#   read ans
+# }}
 
+map <enter>z $unzip $f
+map <enter>g $git clone $(wl-paste)
+# map <enter>g  $git clone $wl-paste
+# map <enter>g echo $PWD
 
 ########################## Bindings
 # Basic Functions
@@ -107,9 +133,10 @@ map p paste
 map x cut
 map y copy
 map S $open $f
+
 # Switch keymap for lf opened inside nvim and outside
-map <enter> $bash ~/.config/nvim/lfrunner.bash
-map e $bash ~/.config/nvim/lfrunner.bash
+# map <enter> $bash ~/.config/nvim/lfrunner.bash
+# map e $bash ~/.config/nvim/lfrunner.bash
 map <c-g> $lazygit
 map E $hx $f
 map C $code $f
@@ -118,5 +145,8 @@ map a touch
 map A mkdir
 map \$ shellcmd
 map | shell
-map ? help
+# map ? help
 map <a-x> chmodx
+
+# map ss set sortby ctime; set info ctime 
+

@@ -204,4 +204,13 @@ c.url.searchengines = {
     "aw": "https://wiki.archlinux.org/?search={}",
     "y": "https://www.youtube.com/results?search_query={}",
     "np": "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}",
+    "ali": "https://aliexpress.com/w/{}.html?spm=a2g0o.productlist.search.0",
 }
+
+c.fileselect.handler = "external"
+c.fileselect.single_file.command = ["foot", "lf", "-print-selection"]
+c.fileselect.multiple_files.command = ["foot", "lf", "-print-selection"]
+c.fileselect.folder.command = ["foot", "lf", "-print-selection"]
+# c.fileselect.single_file.command = ["lf", "-print-selection"]
+# c.fileselect.multiple_files.command = ["lf", "-print-selection"]
+# c.fileselect.folder.command = ["lf", "-print-selection"]

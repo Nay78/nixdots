@@ -6,7 +6,7 @@
   ];
 
   programs.swaylock.enable = true;
-  services.mako.enable = true; # notifications
+  # services.mako.enable = true; # notifications
   gtk.enable = true;
 
   # wayland.windowManager.hyprland = {

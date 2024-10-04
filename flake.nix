@@ -60,7 +60,7 @@
             ./home
             ./nixos/programming.nix
             nix-ld.nixosModules.nix-ld
-            qbpm.packages.${system}
+            # qbpm.packages.${system}
             # {
             #   environment.systemPackages = with pkgs; [
             #     qbpm

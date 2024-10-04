@@ -14,8 +14,6 @@ in
     ./hardware-configuration.nix
     ./nixos/vbox.nix
     # ./nixos/sddm.nix
-    # ./hyprland.nix
-    #    ./greetd.nix
   ];
 
   services.udev.extraRules = ''
@@ -122,10 +120,10 @@ in
     # qbpm
     helix
     zsh
-    alacritty
     stow
     grim
-    mako
+    # mako
+    dunst
     # git
     pkgs.libinput
     libnotify # dunst depends on this
@@ -147,44 +145,85 @@ in
   ];
   # fonts
 
-  fonts.fontDir.enable = true;
-  fonts.packages =
-    # [ linja-sike ]
-    # ++ (with pkgs; [
-    (
-      with pkgs;
-      [
-        (nerdfonts.override {
-          fonts = [
-            "JetBrainsMono"
-            "NerdFontsSymbolsOnly"
-          ];
-        })
-        line-awesome
-        open-sans
-        libertine
-        ipafont
-        kochi-substitute
-        freefont_ttf
-      ]
-    );
-  fonts.fontconfig.defaultFonts = {
-    monospace = [
-      "JetBrainsMono Nerd Font Mono"
-      "IPAGothic"
-      "FreeMono"
+  fonts = {
+    # enableFontDir = true;
+    fontDir.enable = true;
+    packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "NerdFontsSymbolsOnly"
+        ];
+      })
+      line-awesome
+      open-sans
+      libertine
+      ipafont
+      kochi-substitute
+      freefont_ttf
     ];
-    sansSerif = [
-      "Open Sans"
-      "IPAGothic"
-      "FreeSans"
-    ];
-    serif = [
-      "Linux Libertine O"
-      "IPAMincho"
-      "FreeSerif"
-    ];
+    fontconfig.defaultFonts = {
+      monospace = [
+        "JetBrainsMono Nerd Font Mono"
+        "IPAGothic"
+        "FreeMono"
+      ];
+      sansSerif = [
+        "Open Sans"
+        "IPAGothic"
+        "FreeSans"
+      ];
+      serif = [
+        "Linux Libertine O"
+        "IPAMincho"
+        "FreeSerif"
+      ];
+    };
   };
+
+  environment.sessionVariables = {
+    FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
+    FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts";
+  };
+
+  # fonts.fontDir.enable = true;
+  # fonts.packages =
+  #   # [ linja-sike ]
+  #   # ++ (with pkgs; [
+  #   (
+  #     with pkgs;
+  #     [
+  #       (nerdfonts.override {
+  #         fonts = [
+  #           "JetBrainsMono"
+  #           "NerdFontsSymbolsOnly"
+  #         ];
+  #       })
+  #       line-awesome
+  #       open-sans
+  #       libertine
+  #       ipafont
+  #       kochi-substitute
+  #       freefont_ttf
+  #     ]
+  #   );
+  # fonts.fontconfig.defaultFonts = {
+  #   monospace = [
+  #     "JetBrainsMono Nerd Font Mono"
+  #     "IPAGothic"
+  #     "FreeMono"
+  #   ];
+  #   sansSerif = [
+  #     "Open Sans"
+  #     "IPAGothic"
+  #     "FreeSans"
+  #   ];
+  #   serif = [
+  #     "Linux Libertine O"
+  #     "IPAMincho"
+  #     "FreeSerif"
+  #   ];
+  # };
 
   # bluetooth
   hardware.bluetooth.enable = true;

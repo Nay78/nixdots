@@ -223,7 +223,7 @@
 
     # Should a notification popped up from history be sticky or timeout
     # as if it would normally do.
-    sticky_history = yes
+    sticky_history = no
 
     # Maximum amount of notifications kept in history
     history_length = 20
@@ -446,7 +446,7 @@
     foreground = "#1e1e2e"
     frame_color = "#f38ba8"
     icon = "$HOME/.config/dunst/icons/critical.svg"
-    timeout = 0
+    timeout = 10
 
 [urgency_low]
     background = "#6591A380"

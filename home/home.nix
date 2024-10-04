@@ -27,17 +27,26 @@
   # home.homeDirectory = "/home/alejg"
 
   home.packages = with pkgs; [
+
+    qemu
+    libsForQt5.dolphin
     qalculate-gtk
     yt-dlp
     zathura
     tmux
     wireguard-tools # tools
     openconnect # tools
-    lf
     xorg.xev
     vifm-full
     # nvd # nix diffs
     nix-visualize
+
+    # lf file manager and utils
+    lf
+    ffmpeg
+    ghostscript
+    imagemagick
+    ueberzug
 
     # nekoray
     starship
