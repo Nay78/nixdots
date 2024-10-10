@@ -198,6 +198,10 @@ config.bind(
 )
 config.bind("<Ctrl-Shift-PgDown>", "tab-move +")
 config.bind("<Ctrl-Shift-PgUp>", "tab-move -")
+config.bind("<Ctrl-l>", "cmd-set-text :open {url:pretty}")
+# config.bind("<Ctrl-t>", "cmd-set-text -s :open -t")
+
+
 # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
@@ -205,12 +209,13 @@ c.url.searchengines = {
     "y": "https://www.youtube.com/results?search_query={}",
     "np": "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}",
     "ali": "https://aliexpress.com/w/{}.html?spm=a2g0o.productlist.search.0",
+    "ebay": "https://www.ebay.com/sch/i.html?_nkw={}",
 }
-
-c.fileselect.handler = "external"
-c.fileselect.single_file.command = ["foot", "lf", "-print-selection"]
-c.fileselect.multiple_files.command = ["foot", "lf", "-print-selection"]
-c.fileselect.folder.command = ["foot", "lf", "-print-selection"]
+# filechooser = ["foot", "-e", "sh", "-c", 'cd && yazi --chooser-file="$1"', "_", "{}"]
+# c.fileselect.handler = "external"
+# c.fileselect.single_file.command = filechooser
+# c.fileselect.multiple_files.command = filechooser
+# c.fileselect.folder.command = filechooser
 # c.fileselect.single_file.command = ["lf", "-print-selection"]
 # c.fileselect.multiple_files.command = ["lf", "-print-selection"]
 # c.fileselect.folder.command = ["lf", "-print-selection"]

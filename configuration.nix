@@ -13,6 +13,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./nixos/vbox.nix
+    ./nixos/qutebrowser-profile.nix
     # ./nixos/sddm.nix
   ];
 

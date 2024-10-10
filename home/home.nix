@@ -28,10 +28,12 @@
 
   home.packages = with pkgs; [
 
+    zoxide
     qemu
     libsForQt5.dolphin
     qalculate-gtk
     yt-dlp
+    feh
     zathura
     tmux
     wireguard-tools # tools
@@ -41,7 +43,9 @@
     # nvd # nix diffs
     nix-visualize
 
-    # lf file manager and utils
+    # file manager and utils
+    yazi
+    poppler
     lf
     ffmpeg
     ghostscript
@@ -186,65 +190,34 @@
 
   programs.lazygit.enable = true;
 
-  # programs.firefox = {
-  #   enable = true;
-  #   package = unstable.firefox-devedition-bin;
-  #   profiles = rec {
-  #     alejg = {
-  #       id = 0;
-  #       search = {
-  #         engines = {
-  #           "Bing".metaData.hidden = true;
-  #           # "Google".metaData.alias = "@g";
-  #         };
-  #         force = true;
-  #       };
-  #     };
-  #     # dev-edition-default = hofsiedge // {
-  #     #   id = 1;
-  #     # };
-  #   };
-  # };
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "application/pdf" = [ "zathura.desktop" ];
+    };
+    defaultApplications = {
+      "inode/directory" = [ "pcmanfm.desktop" ]; # Directories
+      # "text/plain" = [ "emacsclient.desktop" ]; # Plain text
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
+        "onlyoffice-desktopeditors.desktop"
+      ]; # .docx
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
+        "onlyoffice-desktopeditors.desktop"
+      ]; # .pptx
+      "application/pdf" = [ "onlyoffice-desktopeditors.desktop" ]; # .pdf
+      "application/zip" = [ "xarchiver.desktop" ];
+      "text/*" = [ "emacsclient.desktop" ]; # Any text files
+      "video/*" = [ "mpv.desktop" ]; # Any video files
+      "x-scheme-handler/https" = [ "firefox.desktop" ]; # Links
+      "x-scheme-handler/http" = [ "firefox.desktop" ]; # Links
+      "x-scheme-handler/mailto" = [ "firefox.desktop" ]; # Links
+      "image/*" = [ "feh.desktop" ]; # Images
+      "image/png" = [ "feh.desktop" ];
+      "image/jpeg" = [ "feh.desktop" ];
 
-  # programs.nushell = {
-  #   enable = true;
-  #   configFile.text = ''
-  #   '';
-  #   environmentVariables = {
-  #     EDITOR = "hx";
-  #   };
-  # };
+    };
+  };
 
-  # for those use cases where helix is lacking yet
-  # programs.vscode = {
-  #   enable = false;
-  #   package = pkgs.vscodium;
-  #   extensions =
-  #     with pkgs.vscode-extensions;
-  #     [ golang.go ]
-  #     ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-  #       {
-  #         name = "idris-vscode";
-  #         publisher = "meraymond";
-  #         version = "latest";
-  #         # sha256 = pkgs.lib.fakeHash;
-  #         sha256 = "sha256-QAzjm+8Z+4TDbM5amh3UEkSmp0n8ZlRHYpUGAewIVXk=";
-  #       }
-  #       {
-  #         name = "templ";
-  #         publisher = "a-h";
-  #         version = "latest";
-  #         # sha256 = pkgs.lib.fakeHash;
-  #         sha256 = "sha256-/77IO+WjgWahUrj6xVl0tkvICh9Cy+MtfH2dewxH8LE=";
-  #       }
-  #     ];
-  #
-  #   userSettings = {
-  #     "python.defaultInterpreterPath" = "/run/current-system/sw/bin/python";
-  #     "idris.idrisPath" = "idris2";
-  #   };
-  # };
-  #
   programs.git = {
     enable = true;
     userName = "alejg";
@@ -272,26 +245,8 @@
   #     '';
   #   };
   #
-  #   xdg.mimeApps = {
-  #     enable = true;
-  #     defaultApplications =
-  #       with pkgs.lib.attrsets;
-  #       concatMapAttrs (name: mimes: genAttrs mimes (_: name + ".desktop")) {
-  #         "firefox-developer-edition" = [
-  #           "application/pdf"
-  #           "x-scheme-handler/http"
-  #           "x-scheme-handler/https"
-  #           "text/html"
-  #           "application/xhtml+xml"
-  #           "x-scheme-handler/chrome"
-  #           "application/x-extension-htm"
-  #           "application/x-extension-html"
-  #           "application/x-extension-shtml"
-  #           "application/x-extension-xhtml"
-  #           "application/x-extension-xht"
-  #         ];
-  #         "org.telegram.desktop" = [ "x-scheme-handler/tg" ];
-  #       };
+  #
+
   # programs.tmux = {
   #   enable = true;
   #   clock24 = true;

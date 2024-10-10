@@ -46,6 +46,7 @@ vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Clear search with <esc>
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
 -- Escape and save changes.
 vim.keymap.set({ "s", "i", "n", "v" }, "<C-s>", "<esc>:w<cr>", { desc = "Exit insert mode and save changes." })
 
@@ -134,25 +135,37 @@ vim.keymap.set("n", "<C-PageDown>", "<leader>bP")
 vim.keymap.set("n", "<C-PageUp>", "<leader>bP")
 -- vim.keymap.set("i", "<c-bs>", "dw")
 -- vim.keymap.set("i", "<c-bs>", "dw")
+
+-- ctrl arrow movement
 vim.keymap.set("n", "<C-Up>", "{")
 vim.keymap.set("n", "<C-Down>", "}")
 vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
 
 -- arrow resize
-vim.keymap.set("n", "<A-Up>", ":resize +3<CR>")
-vim.keymap.set("n", "<A-Down>", ":resize -3<CR>")
-vim.keymap.set("n", "<A-Left>", ":vertical resize +3<CR>")
-vim.keymap.set("n", "<A-Right>", ":vertical resize -3<CR>")
+-- vim.keymap.set("n", "<A-Up>", ":resize +3<CR>")
+-- vim.keymap.set("n", "<A-Down>", ":resize -3<CR>")
+-- vim.keymap.set("n", "<A-Left>", ":vertical resize +3<CR>")
+-- vim.keymap.set("n", "<A-Right>", ":vertical resize -3<CR>")
 
--- arrow move
-vim.keymap.set("n", "<S-Up>", ":resize +3<CR>")
-vim.keymap.set("n", "<S-Down>", ":resize -3<CR>")
-vim.keymap.set("n", "<S-Left>", ":vertical resize +3<CR>")
-vim.keymap.set("n", "<S-Right>", ":vertical resize -3<CR>")
+-- arrow resize
+vim.keymap.set("n", "<C-S-Up>", ":resize +3<CR>")
+vim.keymap.set("n", "<C-S-Down>", ":resize -3<CR>")
+vim.keymap.set("n", "<C-S-Left>", ":vertical resize +3<CR>")
+vim.keymap.set("n", "<C-S-Right>", ":vertical resize -3<CR>")
+
+-- arrow move window
+vim.keymap.set("n", "<A-Up>", "<C-w>k", { noremap = true, silent = true })
+vim.keymap.set("n", "<A-Down>", "<C-w>j", { noremap = true, silent = true })
+vim.keymap.set("n", "<A-Left>", "<C-w>h", { noremap = true, silent = true })
+vim.keymap.set("n", "<A-Right>", "<C-w>l", { noremap = true, silent = true })
 
 -- backspace delete word
 vim.keymap.set("i", "<C-BS>", "<C-w>")
 
 vim.keymap.set("n", "<C-PageDown>", ":BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<C-PageUp>", ":BufferLineCyclePrev<CR>")
+
+-- switch window
+vim.keymap.set("n", "<C-Tab>", "<C-w>w", { noremap = true, silent = true })
+vim.keymap.set("n", "<Tab>", "<C-w>w", { noremap = true, silent = true })
