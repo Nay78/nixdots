@@ -1,3 +1,4 @@
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 # bind '"\C-o":"y\C-m"'
 # bind '"\C-o":"\e y\C-m"'
 bind '"\C-o":"\C-u y\C-m"'

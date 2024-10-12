@@ -1,9 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # terminals
     alacritty
     kitty
     foot
+    unstable.warp-terminal
 
     helix
     zsh

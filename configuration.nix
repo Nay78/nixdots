@@ -13,13 +13,15 @@ in
   imports = [
     ./hardware-configuration.nix
     ./nixos/vbox.nix
-    ./nixos/qutebrowser-profile.nix
+    ./nixos/qutebrowser-profiles.nix
+    ./nixos/dropbox.nix
     # ./nixos/sddm.nix
   ];
 
   services.udev.extraRules = ''
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="100", TAG+="uaccess", TAG+="udev-acl"
     KERNEL=="hidraw*", MODE="0766"
+    ACTION=="add", SUBSYSTEMS=="usb", SUBSYSTEM=="block", ENV{ID_FS_USAGE}=="filesystem", RUN{program}+="${pkgs.systemd}/bin/systemd-mount --no-block --automount=yes --collect $devnode /media"       
   '';
 
   nix = {
@@ -37,9 +39,15 @@ in
   #   };
   # };
   # allowUnfree = true;
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
+  programs = {
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
+    nix-ld = {
+      enable = true;
+    };
+    #
   };
   # programs.hyprland.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -117,8 +125,11 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    udisks
+    udiskie
     qutebrowser
-    # qbpm
+    pmount
+    icu
     helix
     zsh
     stow

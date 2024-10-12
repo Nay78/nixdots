@@ -28,6 +28,10 @@
 
   home.packages = with pkgs; [
 
+    # icu
+    # pmount
+    udisks
+    udiskie
     zoxide
     qemu
     libsForQt5.dolphin
@@ -101,6 +105,12 @@
       ps: with ps; [
         requests
         ipython
+        attrs
+        cattrs
+        click
+        colorama
+        pyyaml
+        keyutils
       ]
     ))
 
@@ -135,7 +145,7 @@
     qmk
     via
     keepassxc
-    unstable.dropbox
+    # unstable.dropbox
     krita
     # Nvidia stuff. FIXME: fine tune for the new hardware
     # egl-wayland
