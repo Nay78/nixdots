@@ -20,11 +20,15 @@
     pkgs.libgcc
     gcc
     nodejs
-    go
     cargo
     unzip
     ripgrep
     nixfmt-rfc-style
     cmake
+
+    # go
+
+    go
+    unstable.gomobile
   ];
 }

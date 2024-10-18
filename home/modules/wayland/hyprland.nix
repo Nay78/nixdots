@@ -5,7 +5,7 @@
     ./gtk.nix
   ];
 
-  programs.swaylock.enable = true;
+  # programs.swaylock.enable = true;
   # services.mako.enable = true; # notifications
   gtk.enable = true;
 
@@ -62,6 +62,7 @@
     blueman # bluetooth manager gui
     brightnessctl # screen brightness control
     playerctl
+    udisks
     udiskie # manage removable media
 
     # --------------------------------------------------- // Display Manager

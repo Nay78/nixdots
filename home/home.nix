@@ -1,8 +1,6 @@
 {
   pkgs,
-  lib,
   unstable,
-  self,
   ...
 }@inputs:
 # let
@@ -16,6 +14,7 @@
     ./modules/wayland/sway.nix
     ./modules/wayland/hyprland.nix
     ./modules/nvim.nix
+    ./modules/python.nix
     # ./modules/gbar.nix
     # ./modules/wezterm.nix
     # ./modules/helix.nix
@@ -28,10 +27,17 @@
 
   home.packages = with pkgs; [
 
+    unstable.cudaPackages.cuda_nvcc
+    unstable.ollama-cuda
+    entr
+    dvtm # terminal multiplexer
+    abduco # terminal sessions
+    fzf
+    openssl
+    gocryptfs
+    rclone
     # icu
     # pmount
-    udisks
-    udiskie
     zoxide
     qemu
     libsForQt5.dolphin
@@ -76,15 +82,12 @@
 
     # media
     krita
-    # (blender.override { cudaSupport = true; }) mpv
     vlc
     mpv
     # (inkscape-with-extensions.override {
     #   inkscapeExtensions = [ inkscape-extensions.applytransforms ];
     # })
     obs-studio
-    # godot_4
-    # kdenlive
     # kicad
     # freecad
     # okular
@@ -99,20 +102,6 @@
     # TODO: add effects (https://github.com/wwmm/easyeffects)
     # pavucontrol
     # pulseaudio
-    # brightnessctl
-
-    (unstable.python312.withPackages (
-      ps: with ps; [
-        requests
-        ipython
-        attrs
-        cattrs
-        click
-        colorama
-        pyyaml
-        keyutils
-      ]
-    ))
 
     unstable.dbeaver-bin
     unstable.insomnia
@@ -126,19 +115,10 @@
     libnotify
 
     # preview Markdown
-    python312Packages.grip
 
     anki-bin
 
-    # leafpad
-    # gotop
-    # tree
-    # cloc
-    # jq
-    # superfile
-
     docker-compose
-
     gtypist
 
     vial
@@ -148,7 +128,6 @@
     # unstable.dropbox
     krita
     # Nvidia stuff. FIXME: fine tune for the new hardware
-    # egl-wayland
 
     # development
     avra
@@ -198,8 +177,6 @@
     ''}";
   };
 
-  programs.lazygit.enable = true;
-
   xdg.mimeApps = {
     enable = true;
     associations.added = {
@@ -224,7 +201,6 @@
       "image/*" = [ "feh.desktop" ]; # Images
       "image/png" = [ "feh.desktop" ];
       "image/jpeg" = [ "feh.desktop" ];
-
     };
   };
 
@@ -245,33 +221,8 @@
       init.defaultBranch = "main";
     };
   };
-  #   programs.gh.enable = true;
-  #
-  #   programs.bash = {
-  #     enable = true;
-  #     bashrcExtra = ''
-  #       export XDG_DATA_HOME="$HOME/.local/share"
-  #       export PS1="\n(''${name:-sys-env}) \[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\n\$\[\033[0m\] "
-  #     '';
-  #   };
-  #
-  #
 
-  # programs.tmux = {
-  #   enable = true;
-  #   clock24 = true;
-  #   extraconfig = ''
-  #     # used for less common options, intelligently combines if defined in multiple places.
-  #        # ...
-  #   '';
-  # };
-  # programs.yazi = {
-  #   enable = true;
-  #   enablebashintegration = true;
-  # };
-  #   };
+  programs.lazygit.enable = true;
+  programs.gh.enable = true;
 
-  # custom = {
-  #   nnn.enable = true;
-  # };
 }

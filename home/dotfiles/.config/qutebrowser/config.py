@@ -160,6 +160,7 @@ config.set(
 # Make characters in hint strings uppercase.
 # Type: Bool
 c.hints.uppercase = True
+c.zoom.default = "110%"
 
 # Position of the tab bar.
 # Type: Position
@@ -190,7 +191,7 @@ c.tabs.show = "multiple"
 #   - light: Force a light theme.
 #   - dark: Force a dark theme.
 c.colors.webpage.preferred_color_scheme = "dark"
-
+c.colors.webpage.darkmode.enabled = True
 
 config.bind(";m", "hint links spawn mpv {hint-url}")
 config.bind(
@@ -200,8 +201,12 @@ config.bind("<Ctrl-Shift-PgDown>", "tab-move +")
 config.bind("<Ctrl-Shift-PgUp>", "tab-move -")
 config.bind("<Ctrl-l>", "cmd-set-text :open {url:pretty}")
 # config.bind("<Ctrl-t>", "cmd-set-text -s :open -t")
+config.bind(",m", "spawn mpv {url:pretty}")
+config.bind(",yy", "spawn yt-dlp -P ~/Downloads/videos {url:pretty}")
+config.bind(",yp", "spawn yt-dlp -P ~/Desktop/alejg/vid {url:pretty}")
 
-
+config.unbind("d")
+config.unbind("<Ctrl-q>")
 # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
@@ -210,6 +215,7 @@ c.url.searchengines = {
     "np": "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}",
     "ali": "https://aliexpress.com/w/{}.html?spm=a2g0o.productlist.search.0",
     "ebay": "https://www.ebay.com/sch/i.html?_nkw={}",
+    "nix": "https://github.com/search?q={}+language%3ANix+&type=code",
 }
 # filechooser = ["foot", "-e", "sh", "-c", 'cd && yazi --chooser-file="$1"', "_", "{}"]
 # c.fileselect.handler = "external"

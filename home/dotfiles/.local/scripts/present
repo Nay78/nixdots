@@ -1,0 +1,4 @@
+https://www.pornhub.com/view_video.php?viewkey=ph55e9a650dd491!/bin/bash
+#!/usr/bin/env bash
+
+gsed -i 's/size = 25/size = 95/g' /users/mischa/repos/github.com/mischavandenburg/dotfiles/alacritty.toml

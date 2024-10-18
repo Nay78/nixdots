@@ -18,10 +18,14 @@ in
     # ./nixos/sddm.nix
   ];
 
+  # services.thermald.enable = true;
+  services.auto-cpufreq.enable = true;
+
   services.udev.extraRules = ''
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="100", TAG+="uaccess", TAG+="udev-acl"
     KERNEL=="hidraw*", MODE="0766"
-    ACTION=="add", SUBSYSTEMS=="usb", SUBSYSTEM=="block", ENV{ID_FS_USAGE}=="filesystem", RUN{program}+="${pkgs.systemd}/bin/systemd-mount --no-block --automount=yes --collect $devnode /media"       
+    # ACTION=="add", SUBSYSTEMS=="usb", SUBSYSTEM=="block", ENV{ID_FS_USAGE}=="filesystem", RUN{program}+="${pkgs.systemd}/bin/systemd-mount --no-block --automount=yes --collect --options=rw,uid=${username} $devnode /media/$(basename $devnode)"
+    ACTION=="add", SUBSYSTEMS=="usb", SUBSYSTEM=="block", ENV{ID_FS_USAGE}=="filesystem", RUN{program}+="${pkgs.systemd}/bin/systemd-mount --no-block --automount=yes --collect --options=rw,uid=${username} $devnode /media/$devnode"
   '';
 
   nix = {
@@ -30,15 +34,7 @@ in
       experimental-features = nix-command flakes
     '';
   };
-  # nixpkgs = {
-  #   config = {
-  #     allowUnfree = true;
-  #     packageOverrides = pkgs: {
-  #       unstable = import (fetchTarball "channel:nixos-unstable") { config = config.nixpkgs.config; };
-  #     };
-  #   };
-  # };
-  # allowUnfree = true;
+
   programs = {
     neovim = {
       enable = true;
@@ -50,8 +46,21 @@ in
     #
   };
   # programs.hyprland.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+  environment.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
+    # QT_SCALE_FACTOR = "1.1";
+    QT_SCALE_FACTOR_ROUNDING_POLICY = "RoundPreferFloor";
+
+    NIXOS_OZONE_WL = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    # QT_QPA_PLATFORMTHEME = "qt6ct";
+    # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    # MOZ_ENABLE_WAYLAND = "1";
+    # GDK_SCALE = "1";
+  };
 
   # sway
   security.polkit.enable = true;
@@ -122,6 +131,17 @@ in
     ];
   };
 
+  # nixpkgs = {
+  #   config = {
+  #     # android_sdk.accept_license = true;
+  #     # allowUnfree = true;
+  #     # packageOverrides = pkgs: {
+  #     #   unstable = import (fetchTarball "channel:nixos-unstable") { config = config.nixpkgs.config; };
+  #     # };
+  #   };
+  # };
+  # allowUnfree = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -141,11 +161,6 @@ in
     libnotify # dunst depends on this
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    # gnumake
-    # gcc
-    # nodejs
-    # go
-    # cargo
     unzip
     ripgrep
     # nixfmt-rfc-style
@@ -255,10 +270,10 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 

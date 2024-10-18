@@ -1,25 +1,29 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
+let
+  inherit (import ../variables.nix) username;
+in
+
 {
   environment.systemPackages = with pkgs; [
-    dropbox
+    unstable.dropbox
   ];
-  systemd.services.dropbox = {
-    Unit = {
-      Description = "Dropbox daemon";
-      After = [ "network.target" ];
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      # Type = "simple";
-      ExecStart = "${pkgs.dropbox}/bin/dropbox";
+
+  systemd.user.services.dropbox = {
+    description = "Dropbox daemon";
+    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    enable = true;
+    restartIfChanged = true;
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${unstable.dropbox}/bin/dropbox start";
+      ExecStop = "${unstable.dropbox}/bin/dropbox stop";
+      PassEnvironment = "DISPLAY";
       Restart = "on-failure";
-      # ExecStop = "${pkgs.dropbox}/bin/dropbox";
-      # Restart = "on-failure";
-      # RestartSec = "5s";
-      # User = "alejg";
-      # Group = "alejg";
+      RestartSec = "5s";
+      User = "${username}"; # Set your actual username here.
+      Group = "${username}"; # Set your actual group here (probably same as your username).
     };
   };
+
 }

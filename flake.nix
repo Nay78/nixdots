@@ -37,6 +37,7 @@
       # username = "alejg";
       # pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
       # lib = nixpkgs.lib;
+      # nixpkgs.con
 
       mkSystem =
         hostname:
@@ -46,7 +47,11 @@
             # inherit (inputs);
             unstable = import inputs.unstable {
               inherit system;
-              config.allowUnfree = true;
+              # config.allowUnfree = true;
+              config = {
+                allowUnfree = true;
+                android_sdk.accept_license = true;
+              };
             };
             stable = import inputs.stable {
               inherit system;
