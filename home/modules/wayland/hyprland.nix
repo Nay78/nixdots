@@ -93,6 +93,7 @@
     parallel # for parallel processing
     jq # for json processing
     imagemagick # for image processing
+    sxiv # for image viewing
     # qt5-imageformats                                       # for dolphin image thumbnails
     # ffmpegthumbs                                           # for dolphin video thumbnails
     # kde-cli-tools                                          # for dolphin file type defaults

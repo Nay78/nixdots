@@ -14,7 +14,7 @@
     ./modules/wayland/sway.nix
     ./modules/wayland/hyprland.nix
     ./modules/nvim.nix
-    ./modules/python.nix
+    # ./modules/python.nix
     # ./modules/gbar.nix
     # ./modules/wezterm.nix
     # ./modules/helix.nix
@@ -43,12 +43,12 @@
     libsForQt5.dolphin
     qalculate-gtk
     yt-dlp
-    feh
-    zathura
-    tmux
-    wireguard-tools # tools
-    openconnect # tools
-    xorg.xev
+    feh # image viewer
+    zathura # pdf viewer
+    tmux # terminal
+    wireguard-tools # vpn
+    openconnect # vpn
+    xorg.xev # tools
     vifm-full
     # nvd # nix diffs
     nix-visualize
@@ -82,6 +82,7 @@
 
     # media
     krita
+    gimp
     vlc
     mpv
     # (inkscape-with-extensions.override {
@@ -142,6 +143,20 @@
     #   cd $HOME/Projects/misc/go-playground
     #   nix develop --offline --command $EDITOR code.go
     # '')
+    (unstable.python312.withPackages (
+      ps: with ps; [
+        requests
+        ipython
+        attrs
+        cattrs
+        click
+        colorama
+        pyyaml
+        keyutils
+        pynacl # qute-keepassxc
+        grip
+      ]
+    ))
 
     (pkgs.writeShellApplication {
       name = "ocr-screenshot";
@@ -183,7 +198,7 @@
       "application/pdf" = [ "zathura.desktop" ];
     };
     defaultApplications = {
-      "inode/directory" = [ "pcmanfm.desktop" ]; # Directories
+      # "inode/directory" = [ "pcmanfm.desktop" ]; # Directories
       # "text/plain" = [ "emacsclient.desktop" ]; # Plain text
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
         "onlyoffice-desktopeditors.desktop"
@@ -191,7 +206,7 @@
       "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
         "onlyoffice-desktopeditors.desktop"
       ]; # .pptx
-      "application/pdf" = [ "onlyoffice-desktopeditors.desktop" ]; # .pdf
+      "application/pdf" = [ "zathura.desktop" ]; # .pdf
       "application/zip" = [ "xarchiver.desktop" ];
       "text/*" = [ "emacsclient.desktop" ]; # Any text files
       "video/*" = [ "mpv.desktop" ]; # Any video files
@@ -199,6 +214,7 @@
       "x-scheme-handler/http" = [ "firefox.desktop" ]; # Links
       "x-scheme-handler/mailto" = [ "firefox.desktop" ]; # Links
       "image/*" = [ "feh.desktop" ]; # Images
+      "image/webp" = [ "feh.desktop" ]; # Images
       "image/png" = [ "feh.desktop" ];
       "image/jpeg" = [ "feh.desktop" ];
     };

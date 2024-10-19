@@ -194,6 +194,7 @@ c.colors.webpage.preferred_color_scheme = "dark"
 c.colors.webpage.darkmode.enabled = True
 
 config.bind(";m", "hint links spawn mpv {hint-url}")
+config.bind(";:", "hint images right-click")
 config.bind(
     "sy", "hint links spawn yt-dlp -o '~/Downloads/%(title)s.%(ext)s' {hint-url}"
 )
