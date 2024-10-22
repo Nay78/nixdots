@@ -9,6 +9,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     pyfhsflake.url = "path:./nixos/pythonfhs.nix";
+    pyfhsflake.inputs.nixpkgs.follows = "nixpkgs";
     # gBar.url = "github:scorpion-26/gBar";
     # nix-ld.url = "github:Mic92/nix-ld";
     # nix-ld.inputs.nixpkgs.follows = "nixpkgs";
