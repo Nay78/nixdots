@@ -27,40 +27,30 @@
 
   home.packages = with pkgs; [
 
+    # for ai assistant
+    portaudio
     unstable.cudaPackages.cuda_nvcc
     unstable.ollama-cuda
+    zip
     entr
-    dvtm # terminal multiplexer
-    abduco # terminal sessions
-    fzf
     openssl
     gocryptfs
     rclone
+    p7zip
     # icu
     # pmount
-    zoxide
     qemu
     libsForQt5.dolphin
     qalculate-gtk
-    yt-dlp
+    yt-dlp # tools
     feh # image viewer
     zathura # pdf viewer
-    tmux # terminal
     wireguard-tools # vpn
     openconnect # vpn
     xorg.xev # tools
     vifm-full
     # nvd # nix diffs
     nix-visualize
-
-    # file manager and utils
-    yazi
-    poppler
-    lf
-    ffmpeg
-    ghostscript
-    imagemagick
-    ueberzug
 
     # nekoray
     starship
@@ -143,9 +133,14 @@
     #   cd $HOME/Projects/misc/go-playground
     #   nix develop --offline --command $EDITOR code.go
     # '')
-    (unstable.python312.withPackages (
+    poetry
+    pipx
+    uv
+    (unstable.python3.withPackages (
       ps: with ps; [
         requests
+        pandas
+        numpy
         ipython
         attrs
         cattrs
@@ -155,6 +150,23 @@
         keyutils
         pynacl # qute-keepassxc
         grip
+
+        evdev
+        pyaudio
+        "git+https://github.com/stlukey/whispercpp.py"
+        pip
+        # llama-assistant
+        # llama-assistant
+        # PyQt5
+        # SpeechRecognition
+        markdown
+        pynput
+        # llama-cpp-python
+        # huggingface_hub
+        # openwakeword
+        # pyinstaller
+        ffmpeg-python
+        "git+https://github.com/vietanhdev/llama-assistant"
       ]
     ))
 
@@ -210,9 +222,9 @@
       "application/zip" = [ "xarchiver.desktop" ];
       "text/*" = [ "emacsclient.desktop" ]; # Any text files
       "video/*" = [ "mpv.desktop" ]; # Any video files
-      "x-scheme-handler/https" = [ "firefox.desktop" ]; # Links
-      "x-scheme-handler/http" = [ "firefox.desktop" ]; # Links
-      "x-scheme-handler/mailto" = [ "firefox.desktop" ]; # Links
+      "x-scheme-handler/https" = [ "qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/http" = [ "qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/mailto" = [ "qutebrowser.desktop" ]; # Links
       "image/*" = [ "feh.desktop" ]; # Images
       "image/webp" = [ "feh.desktop" ]; # Images
       "image/png" = [ "feh.desktop" ];

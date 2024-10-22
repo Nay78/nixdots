@@ -30,5 +30,17 @@
 
     go
     unstable.gomobile
+
+    # terminal and tools
+    tmux # multiplexer
+    sesh
+    zoxide
+    fzf
+    sshs
+    atac
+    termshark
+
+    dvtm # terminal multiplexer
+    abduco # terminal sessions
   ];
 }

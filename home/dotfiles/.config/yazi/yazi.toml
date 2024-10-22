@@ -50,6 +50,10 @@ extract = [
   { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
   { run = 'ya pub extract --list %*', desc = "Extract here", for = "windows" },
 ]
+zip = [
+  { run = 'zip $1', desc = "zip it", for = "unix" },
+  { run = '$1', desc = "zip it", for = "windows" },
+]
 play = [
   { run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
   { run = 'mpv --force-window %*', orphan = true, for = "windows" },
@@ -61,6 +65,7 @@ rules = [
   # Folder
   { name = "*/", use = [
     "edit",
+    "zip",
     "open",
     "reveal",
   ] },

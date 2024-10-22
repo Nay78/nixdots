@@ -50,4 +50,4 @@ if [ ! -f "$file" ]; then
 fi
 
 # Open the daily note at the bottom of the file in insert mode and run NoNeckPain to make it center
-nvim '+ normal Gzzo' "$file" -c
+nvim '+ normal Gzzo' "$file"

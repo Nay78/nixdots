@@ -85,16 +85,29 @@
     swappy # screenshot editor
     cliphist # clipboard manager
 
+    # --------------------------------------------------- // file Manager 
+    # file manager and utils
+    yazi
+    file
+    poppler
+    lf
+    ffmpeg
+    ffmpegthumbnailer
+    ghostscript
+    imagemagick
+    ueberzug
+    jq # for json processing
+    imagemagick # for image processing
+
     # --------------------------------------------------- // Dependencies
     polkit_gnome # authentication agent
     # xdg-desktop-portal-hyprland                            # xdg desktop portal for hyprland
     # pacman-contrib                                         # for system update check
     # python-pyamdgpuinfo                                    # for amd gpu info
     parallel # for parallel processing
-    jq # for json processing
-    imagemagick # for image processing
     sxiv # for image viewing
     # qt5-imageformats                                       # for dolphin image thumbnails
+    #
     # ffmpegthumbs                                           # for dolphin video thumbnails
     # kde-cli-tools                                          # for dolphin file type defaults
     libnotify # for notifications

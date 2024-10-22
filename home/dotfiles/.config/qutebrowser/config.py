@@ -191,7 +191,7 @@ c.tabs.show = "multiple"
 #   - light: Force a light theme.
 #   - dark: Force a dark theme.
 c.colors.webpage.preferred_color_scheme = "dark"
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 
 config.bind(";m", "hint links spawn mpv {hint-url}")
 config.bind(";:", "hint images right-click")
@@ -205,8 +205,13 @@ config.bind("<Ctrl-l>", "cmd-set-text :open {url:pretty}")
 config.bind(",m", "spawn mpv {url:pretty}")
 config.bind(",yy", "spawn yt-dlp -P ~/Downloads/videos {url:pretty}")
 config.bind(",yp", "spawn yt-dlp -P ~/Desktop/alejg/vid {url:pretty}")
+config.bind(
+    ",ym",
+    "spawn yt-dlp --extract-audio --audio-quality 0 --audio-format mp3 -P ~/Desktop/mp3 {url:pretty}",
+)
 
-config.unbind("d")
+# config.unbind("d")
+config.bind("d", "tab-clone")
 config.unbind("<Ctrl-q>")
 # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}
 c.url.searchengines = {
@@ -217,7 +222,13 @@ c.url.searchengines = {
     "ali": "https://aliexpress.com/w/{}.html?spm=a2g0o.productlist.search.0",
     "ebay": "https://www.ebay.com/sch/i.html?_nkw={}",
     "nix": "https://github.com/search?q={}+language%3ANix+&type=code",
+    # "gt": "https://translate.google.com/?sl=en&tl=es&text={}&op=translate",
+    "gt": "https://translate.google.com/?sl=auto&tl=es&text={}&op=translate",
 }
+
+for i in range(1, 10):
+    config.bind(f"<Ctrl-{i}>", f"tab-focus {i}")
+
 # filechooser = ["foot", "-e", "sh", "-c", 'cd && yazi --chooser-file="$1"', "_", "{}"]
 # c.fileselect.handler = "external"
 # c.fileselect.single_file.command = filechooser

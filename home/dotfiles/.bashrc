@@ -50,6 +50,7 @@ alias backup='rclone sync ~/files/ drive:backup/files'
 alias mystow='stow -d ~/nixos/home/dotfiles -t ~/ .'
 alias testb='sudo nixos-rebuild test --flake ~/nixos'
 alias restart_audio='systemctl --user restart wireplumber pipewire pipewire-pulse'
+alias syncmine="rclone sync ~/Desktop/orlando drive:backup/orlando"
 
 # projects
 alias p-nix='cd ~/nixos && nvim'
@@ -60,6 +61,7 @@ alias p-zet='cd $ZETTELKASTEN && nvim'
 
 # ~~~~~~~~~~~ prompt ~~~~~~~~~~~~~~~
 eval "$(starship init bash)"
+eval "$(zoxide init bash)"
 
 # ~~~~~~~~~~~ binds ~~~~~~~~~~~~~~~
 bind '"\C-o":"\C-u y\C-m"'

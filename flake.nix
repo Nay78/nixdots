@@ -8,6 +8,7 @@
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    pyfhsflake.url = "path:./nixos/pythonfhs.nix";
     # gBar.url = "github:scorpion-26/gBar";
     # nix-ld.url = "github:Mic92/nix-ld";
     # nix-ld.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +25,7 @@
       nixpkgs,
       home-manager,
       unstable,
+      pyfhsflake,
       # gBar,
       # nix-ld,
       # qbpm,
@@ -68,34 +70,11 @@
             ./nixos/programming.nix
             # nix-ld.nixosModules.nix-ld
             # qbpm.packages.${system}
-            # {
-            #   environment.systemPackages = with pkgs; [
-            #     qbpm
-            #   ];
-            # }
-
-            # ./nixos/hyprland.nix
-            #             home.username = "alejg";
-            #      home.homeDirectory = "/home/alejg";
-            #      programs.home-manager.enable = true;
-            #      home.packages = with pkgs; [
-            #               keepassxc
-            # firefox
-            #      ];
-            #      home.stateVersion = "24.05";
-            #             wayland.windowManager.sway = {
-            #        enable = true;
-            #        config = rec {
-            # terminal = "alacritty";
-            #        modifier = "Mod4";
-            # startup = [
-            #   {command = "firefox";}
-            # ];
-            #      };
-            #      };
-            #        };
-            #  }
-            #end
+            {
+              environment.systemPackages = [
+                pyfhsflake.devShells.x86_64-linux.default
+              ];
+            }
           ];
         };
 
