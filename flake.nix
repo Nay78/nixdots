@@ -8,7 +8,7 @@
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    pyfhsflake.url = "path:./nixos/pythonfhs.nix";
+    pyfhsflake.url = "path:./nixos/pythonfhs";
     pyfhsflake.inputs.nixpkgs.follows = "nixpkgs";
     # gBar.url = "github:scorpion-26/gBar";
     # nix-ld.url = "github:Mic92/nix-ld";
