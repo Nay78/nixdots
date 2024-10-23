@@ -213,6 +213,7 @@ config.bind(
 # config.unbind("d")
 config.bind("d", "tab-clone")
 config.unbind("<Ctrl-q>")
+config.bind("<Ctrl-v>", "insert-text {clipboard}")
 # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",

@@ -44,6 +44,7 @@ alias mountx='gocryptfs ~/files/alejg ~/Desktop/alejg'
 # personal
 
 alias reb='sudo nixos-rebuild switch --verbose --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
+alias reb2='sudo nixos-rebuild switch --verbose --commit-lock-file --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
 alias log="journalctl -u home-manager-alejg.service"
 # alias gsync='rclone sync ~/files/ drive:files'
 alias backup='rclone sync ~/files/ drive:backup/files'
