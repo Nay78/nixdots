@@ -528,3 +528,10 @@ desc = "Rename bookmark by fzf"
 on = ["c", "m"]
 run = "plugin chmod"
 desc = "Chmod on selected files"
+
+
+[[manager.prepend_keymap]]
+on = ["o", "t"]
+run = 'shell --block --confirm "tmux new -s $(basename "$PWD")"'
+# run = 'shell --block --interactive --confirm tmux new -s "$(basename "$PWD")"'
+desc = "new tmux session on current dir"

@@ -11,7 +11,7 @@ settings:
   colors.webpage.preferred_color_scheme:
     global: dark
   content.javascript.clipboard:
-    global: access
+    global: access-paste
   hints.uppercase:
     global: true
   tabs.position:

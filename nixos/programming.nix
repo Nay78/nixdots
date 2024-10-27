@@ -27,9 +27,14 @@
     cmake
 
     # go
-
     go
-    unstable.gomobile
+    # unstable.gomobile
+
+    # kotlin
+    kotlin
+    kotlin-native
+    jetbrains.idea-community
+    gradle
 
     # terminal and tools
     tmux # multiplexer

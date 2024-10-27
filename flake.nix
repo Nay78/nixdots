@@ -8,8 +8,7 @@
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    pyfhsflake.url = "path:///nixos/python/flake.nix";
-    # pyfhsflake = import ./nixos/python/flake.nix;
+    pyfhsflake.url = "path:./nixos/python";
     pyfhsflake.inputs.nixpkgs.follows = "nixpkgs";
     # gBar.url = "github:scorpion-26/gBar";
     # nix-ld.url = "github:Mic92/nix-ld";
@@ -37,6 +36,20 @@
 
     let
       inherit (import ./variables.nix) hostname system username;
+      fhs = unstable.buildFHSUserEnv {
+        name = "fhs-shell";
+        targetPkgs =
+          pkgs:
+          (with pkgs; [
+            python
+            gcc
+            # gfortran
+            pdm
+            virtualenv
+            zlib
+          ]);
+      };
+
       # inherit (import ./nixos/python/flake.nix) ;
       # system = "x86_64-linux"; # current system
       #
@@ -74,16 +87,14 @@
             ./nixos/programming.nix
             # nix-ld.nixosModules.nix-ld
             # qbpm.packages.${system}
-            {
-              environment.systemPackages = [
-                pyfhsflake.devShells.x86_64-linux.default
-              ];
-            }
+            # pyfhsflake.devShells.x86_64-linux.default
           ];
         };
 
     in
     {
+
+      devShells.${system}.default = fhs.env;
       nixosConfigurations = {
         laptop = mkSystem "laptop";
       };

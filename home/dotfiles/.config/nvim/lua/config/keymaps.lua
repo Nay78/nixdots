@@ -38,6 +38,8 @@ vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Lazy" })
 -- Quitting.
 -- vim.keymap.set('n', '<leader>Q', '<cmd>qa<cr>', { desc = 'Quit all' })
 
+-- fast folding
+vim.keymap.set("n", "-", "za", { desc = "Toggle fold" })
 -- Switch between windows.
 -- vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to the left window', remap = true })
 -- vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to the bottom window', remap = true })
@@ -60,6 +62,7 @@ vim.keymap.set("i", "<C-c>", "<esc>")
 vim.keymap.set("i", "jk", [[<C-\><C-n>]], { desc = "Back to normal mode" })
 vim.keymap.set("t", "jk", [[<C-\><C-n>]], { desc = "Back to normal mode" })
 vim.keymap.set("x", "jk", [[<C-\><C-n>]], { desc = "Back to normal mode" })
+vim.keymap.set("i", "<C-w>", "<esc><C-w>", { noremap = true, silent = true })
 
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
@@ -113,7 +116,9 @@ vim.keymap.set("n", "<leader>tt", '<cmd>ToggleTerm cmd="btm" direction=vertical<
 vim.keymap.set("n", "ñ", ":", { desc = "Close terminal" })
 
 -- CopilotChat
-vim.keymap.set("n", "<leader>av", "<cmd>CopilotChatOpen<cr>", { desc = "Toggle vertical copilot chat" })
+vim.keymap.set("n", "<leader>av", "<cmd>CopilotChatOpen<cr>", { desc = "CopilotChatOpen" })
+vim.keymap.set("n", "<leader>an", "<cmd>CopilotChatOpen<cr>", { desc = "CopilotChatOpen" })
+vim.keymap.set("n", "<leader>ae", "<cmd>CopilotChatExplain<cr>", { desc = "CopilotChatExplain" })
 
 -- surround
 -- vim.keymap.set("n", "<CR>", "<cmd>Surround<cr>", { desc = "Surround" })
@@ -161,7 +166,8 @@ vim.keymap.set("n", "<A-Left>", "<C-w>h", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-Right>", "<C-w>l", { noremap = true, silent = true })
 
 -- backspace delete word
-vim.keymap.set("i", "<C-BS>", "<C-w>")
+-- vim.keymap.set("i", "<C-BS>", "<C-w>")
+vim.keymap.set("i", "", "<C-w>")
 
 vim.keymap.set("n", "<C-PageDown>", ":BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<C-PageUp>", ":BufferLineCyclePrev<CR>")
@@ -169,3 +175,10 @@ vim.keymap.set("n", "<C-PageUp>", ":BufferLineCyclePrev<CR>")
 -- switch window
 vim.keymap.set("n", "<C-Tab>", "<C-w>w", { noremap = true, silent = true })
 vim.keymap.set("n", "<Tab>", "<C-w>w", { noremap = true, silent = true })
+
+-- telescope notification
+vim.keymap.set("n", "<leader>fN", ":Telescope notify")
+-- vim.keymap.set("n", "<leader>fN", ":Telescope notify", { noremap = true, silent = true })
+
+-- telescope cwd search
+vim.keymap.set("n", "<leader>ff", LazyVim.pick("files", { root = false }), { noremap = true, silent = true })

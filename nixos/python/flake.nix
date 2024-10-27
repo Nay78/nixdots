@@ -19,7 +19,7 @@
           (with pkgs; [
             python
             gcc
-            gfortran
+            # gfortran
             pdm
             virtualenv
             zlib

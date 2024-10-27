@@ -132,7 +132,6 @@
     qt6.qtwayland
     qt6.qmake
     libsForQt5.qt5.qtwayland
-    qt5ct
     gsettings-qt
 
     # gtk2

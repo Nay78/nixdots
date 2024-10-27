@@ -45,13 +45,17 @@ alias mountx='gocryptfs ~/files/alejg ~/Desktop/alejg'
 
 alias reb='sudo nixos-rebuild switch --verbose --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
 alias reb2='sudo nixos-rebuild switch --verbose --commit-lock-file --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
-alias log="journalctl -u home-manager-alejg.service"
+alias nixlog="journalctl -u home-manager-alejg.service"
 # alias gsync='rclone sync ~/files/ drive:files'
 alias backup='rclone sync ~/files/ drive:backup/files'
 alias mystow='stow -d ~/nixos/home/dotfiles -t ~/ .'
+# alias stowsecrets='sudo stow -d ~/nixos/secrets/root -t / .'
+alias stowsecrets='[ -d ~/nixos/secrets/root ] && sudo stow -d ~/nixos/secrets/root -t / . || echo "Folder ~/nixos/secrets/root does not exist."'
+
 alias testb='sudo nixos-rebuild test --flake ~/nixos'
 alias restart_audio='systemctl --user restart wireplumber pipewire pipewire-pulse'
-alias syncmine="rclone sync ~/Desktop/orlando drive:backup/orlando"
+alias mysync="rclone sync ~/Desktop/orlando drive:backup/orlando"
+alias mysync2="rclone sync ~/nixos drive:backup/nixos"
 
 # projects
 alias p-nix='cd ~/nixos && nvim'

@@ -27,6 +27,7 @@
 
   home.packages = with pkgs; [
 
+    unstable.vscode
     # for ai assistant
     portaudio
     unstable.cudaPackages.cuda_nvcc

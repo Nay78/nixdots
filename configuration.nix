@@ -29,7 +29,8 @@ in
   '';
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
+    # package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';

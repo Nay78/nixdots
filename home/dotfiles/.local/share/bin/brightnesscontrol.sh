@@ -38,7 +38,7 @@ get_brightness() {
   brightnessctl -m | grep -o '[0-9]\+%' | head -c-2
 }
 
-step="${2:-5}"
+step="${2:-10}"
 
 case $1 in
 i | -i) # increase the backlight
