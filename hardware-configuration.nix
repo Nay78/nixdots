@@ -78,6 +78,11 @@
   #     };
   #   };
   # };
+
+  specialisation."VFIO".configuration = {
+    system.nixos.tags = [ "with-vfio" ];
+    vfio.enable = true;
+  };
   hardware = {
     # enableAllFirmware = true;
     # cpu.amd.updateMicrocode = true; # needs unfree

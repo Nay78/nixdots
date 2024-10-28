@@ -210,10 +210,13 @@ config.bind(
     "spawn yt-dlp --extract-audio --audio-quality 0 --audio-format mp3 -P ~/Desktop/mp3 {url:pretty}",
 )
 
+
 # config.unbind("d")
 config.bind("d", "tab-clone")
 config.unbind("<Ctrl-q>")
 config.bind("<Ctrl-v>", "insert-text {clipboard}")
+config.bind("<Ctrl-tab>", "tab-next")
+config.bind("<Ctrl-Shift-tab>", "tab-prev")
 # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",

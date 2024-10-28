@@ -27,6 +27,9 @@
 
   home.packages = with pkgs; [
 
+    # stig # bittorrent
+    #
+    qbittorrent
     unstable.vscode
     # for ai assistant
     portaudio
@@ -41,6 +44,7 @@
     # icu
     # pmount
     qemu
+    quickemu
     libsForQt5.dolphin
     qalculate-gtk
     yt-dlp # tools

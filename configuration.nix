@@ -15,6 +15,7 @@ in
     ./nixos/vbox.nix
     ./nixos/qutebrowser-profiles.nix
     ./nixos/dropbox.nix
+    ./nixos/vfio.nix
     # ./nixos/sddm.nix
   ];
 
@@ -74,6 +75,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "amd_iommu=on" ];
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
