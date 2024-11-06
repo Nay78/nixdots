@@ -34,7 +34,7 @@ in
   # };
 
   home.packages = with pkgs; [
-
+    usbutils
     # stig # bittorrent
     exfat
     util-linux

@@ -25,7 +25,6 @@ in
   ];
 
   # services.thermald.enable = true;
-
   nixpkgs.config.allowUnfree = true;
   services.auto-cpufreq.enable = true;
 
@@ -52,14 +51,12 @@ in
     nix-ld = {
       enable = true;
     };
-    #
   };
 
   systemd.user.services.stow = {
     description = "Stow Download folder on second drive";
     after = [ "graphical.target" ]; # or "default.target", depending on your session manager
     wantedBy = [ "default.target" ];
-
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "ln -s ${secondDriveMnt}/Downloads ~/";
@@ -67,14 +64,10 @@ in
     };
   };
 
-  # programs.hyprland.enable = true;
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  # environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
   environment.sessionVariables = {
     QT_QPA_PLATFORM = "wayland";
     # QT_SCALE_FACTOR = "1.1";
     QT_SCALE_FACTOR_ROUNDING_POLICY = "RoundPreferFloor";
-
     NIXOS_OZONE_WL = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
     # QT_QPA_PLATFORMTHEME = "qt6ct";
@@ -122,10 +115,6 @@ in
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -160,20 +149,9 @@ in
     ];
   };
 
-  # nixpkgs = {
-  #   config = {
-  #     # android_sdk.accept_license = true;
-  #     # allowUnfree = true;
-  #     # packageOverrides = pkgs: {
-  #     #   unstable = import (fetchTarball "channel:nixos-unstable") { config = config.nixpkgs.config; };
-  #     # };
-  #   };
-  # };
-  # allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    usbutils
     displaylink # nonfree
     xorg.xrandr
     cron
@@ -195,21 +173,7 @@ in
     wget
     unzip
     ripgrep
-
-    # virtual shit
-    # nixfmt-rfc-style
-    # xdg-desktop-portal-gnome
-    # xdg-desktop-portal-gtk
-    # xdg-desktop-portal-hyprland
-    # xdg-desktop-portal-kde
-    # xdg-desktop-portal-wlr
   ];
-  # fonts
-  # nixpkgs.config.allowUnfreePredicate =
-  #   pkg:
-  #   builtins.elem (lib.getName pkg) [
-  #     "displaylink"
-  #   ];
 
   fonts = {
     # enableFontDir = true;
@@ -253,45 +217,6 @@ in
     DEFAULT_BROWSER = "${pkgs.qutebrowser}/bin/qutebrowser";
   };
 
-  # fonts.fontDir.enable = true;
-  # fonts.packages =
-  #   # [ linja-sike ]
-  #   # ++ (with pkgs; [
-  #   (
-  #     with pkgs;
-  #     [
-  #       (nerdfonts.override {
-  #         fonts = [
-  #           "JetBrainsMono"
-  #           "NerdFontsSymbolsOnly"
-  #         ];
-  #       })
-  #       line-awesome
-  #       open-sans
-  #       libertine
-  #       ipafont
-  #       kochi-substitute
-  #       freefont_ttf
-  #     ]
-  #   );
-  # fonts.fontconfig.defaultFonts = {
-  #   monospace = [
-  #     "JetBrainsMono Nerd Font Mono"
-  #     "IPAGothic"
-  #     "FreeMono"
-  #   ];
-  #   sansSerif = [
-  #     "Open Sans"
-  #     "IPAGothic"
-  #     "FreeSans"
-  #   ];
-  #   serif = [
-  #     "Linux Libertine O"
-  #     "IPAMincho"
-  #     "FreeSerif"
-  #   ];
-  # };
-
   # bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -320,22 +245,10 @@ in
   # nix-prefetch-url --name displaylink-6.0.0-24.zip https://www.synaptics.com/sites/default/files/exe_files/2024-10/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.1-EXE.zip
   #https://www.synaptics.com/sites/default/files/exe_files/2024-05/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.0-EXE.zip
   # hardware.dis
-  services.xserver = {
-    enable = true;
-    videoDrivers = [
-      "displaylink"
-      "modesetting"
-    ];
-    # desktopManager = {
-    #   plasma5.enable = true;
-    # };
-    # layout = "us";
-    # xkbVariant = "";
-    # dpi = 96;
-    # displayManager.sessionCommands = ''
-    #   ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 1 0
-    # '';
-  };
+
+  services.xserver.displayManager.sessionCommands = ''
+    ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0
+  '';
 
   # mv $PWD/"DisplayLink USB Graphics Software for Ubuntu6.0-EXE.zip" $PWD/displaylink-600.zip
   # nix-prefetch-url file://$PWD/displaylink-600.zip
