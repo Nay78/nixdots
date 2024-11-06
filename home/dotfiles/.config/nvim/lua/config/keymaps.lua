@@ -14,6 +14,8 @@ end
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>")
 
 -- Remap for dealing with word wrap.
+-- vim.keymap.set("n", "k", "v:count == 0 ? 'gk$' : 'k$'", { expr = true })
+-- vim.keymap.set("n", "j", "v:count == 0 ? 'gj$' : 'j$'", { expr = true })
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
@@ -28,6 +30,10 @@ vim.keymap.set("i", ",", ",<c-g>u")
 vim.keymap.set("i", ".", ".<c-g>u")
 vim.keymap.set("i", ";", ";<c-g>u")
 
+--insert shit
+vim.keymap.set("n", "<leader>id", function()
+  vim.cmd("normal! i" .. os.date("%Y-%m-%d "))
+end)
 -- Indent while remaining in visual mode.
 -- vim.keymap.set('v', '<', '<gv')
 -- vim.keymap.set('v', '>', '>gv')
@@ -132,8 +138,14 @@ vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- hello world
 -- vim.keymap.set('n', '<c-_>', ':CommentToggle<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<c-_>', ':CommentToggle<CR>', { noremap = true, silent = true })
+
+-- comments
+-- vim.keymap.set("n", "ﾯ", "gc^j")
+vim.keymap.set("n", "ﾯ", "gccj", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-/>", "gccj", { noremap = true, silent = true })
 -- vim.keymap.set('n', '<c-/>', 'gc<CR>', { noremap = true, silent = true })
-vim.keymap.set("n", "<C-_>", "gc<CR>")
+-- vim.keymap.set("n", "<C-_>", "gc<CR>")
 -- <PageDown><PageUp><C-PageDown><C-BS>
 
 vim.keymap.set("n", "<C-PageDown>", "<leader>bP")
@@ -142,10 +154,21 @@ vim.keymap.set("n", "<C-PageUp>", "<leader>bP")
 -- vim.keymap.set("i", "<c-bs>", "dw")
 
 -- ctrl arrow movement
-vim.keymap.set("n", "<C-Up>", "{")
-vim.keymap.set("n", "<C-Down>", "}")
-vim.keymap.set("n", "<C-Left>", "b")
-vim.keymap.set("n", "<C-Right>", "w")
+-- vim.keymap.set("n", "<C-Up>", "{")
+-- vim.keymap.set("n", "<C-Down>", "}")
+vim.keymap.set("n", "<C-Left>", "B")
+vim.keymap.set("n", "<C-Right>", "E")
+-- vim.keymap.set("i", "<C-Left>", "B")
+-- vim.keymap.set("i", "<C-Right>", "E")
+
+vim.keymap.set("i", "<C-Left>", "<C-o>B")
+vim.keymap.set("i", "<C-Right>", "<C-o>E")
+
+-- arrow movement
+-- vim.keymap.set("n", "<Up>", "<Up>_")
+-- vim.keymap.set("n", "<Down>", "<Down>_")
+-- vim.keymap.set("n", "<Left>", "<Left>_")
+-- vim.keymap.set("n", "<Right>", "<Right>_")
 
 -- arrow resize
 -- vim.keymap.set("n", "<A-Up>", ":resize +3<CR>")
@@ -182,3 +205,16 @@ vim.keymap.set("n", "<leader>fN", ":Telescope notify")
 
 -- telescope cwd search
 vim.keymap.set("n", "<leader>ff", LazyVim.pick("files", { root = false }), { noremap = true, silent = true })
+
+-- Compiler
+vim.api.nvim_set_keymap("n", "<F6>", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>nc", "<cmd>CompilerOpen<cr>", { desc = "Open compiler" })
+vim.keymap.set("n", "<leader>nr", "<cmd>CompilerOpen<cr>", { desc = "Open compiler" })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>nr",
+  -- "<cmd>CompilerStop<cr>" -- (Optional, to dispose all tasks before redo)
+  "<cmd>CompilerRedo<cr>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })

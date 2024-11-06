@@ -215,23 +215,38 @@ config.bind(
 config.bind("d", "tab-clone")
 config.unbind("<Ctrl-q>")
 config.bind("<Ctrl-v>", "insert-text {clipboard}")
-config.bind("<Ctrl-tab>", "tab-next")
-config.bind("<Ctrl-Shift-tab>", "tab-prev")
+config.bind("<Ctrl-tab>", "tab-next", mode="normal")
+config.bind("<Ctrl-tab>", "tab-next", mode="insert")
+config.bind("<Ctrl-Shift-tab>", "tab-prev", mode="normal")
+config.bind("<Ctrl-Shift-tab>", "tab-prev", mode="insert")
+config.bind("<Ctrl-PgUp>", "tab-prev", mode="insert")
+config.bind("<Ctrl-PgDown>", "tab-next", mode="insert")
+config.bind("<Ctrl-w>", "tab-close", mode="insert")
+config.bind("<Ctrl-t>", "open -t", mode="insert")
+
+# sessions
+config.bind(",ss", "cmd-set-text -s :session-save -o ")
+config.bind(",sl", "cmd-set-text -s :session-load ")
+config.bind(",sd", "cmd-set-text -s :session-delete ")
 # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
     "y": "https://www.youtube.com/results?search_query={}",
-    "np": "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}",
+    "np": "https://search.nixos.org/packages?channel=unstable&from=0&size=100&sort=relevance&type=packages&query={}",
+    "no": "https://search.nixos.org/options?channel=unstable&size=500&sort=relevance&type=packages&query={}",
     "ali": "https://aliexpress.com/w/{}.html?spm=a2g0o.productlist.search.0",
     "ebay": "https://www.ebay.com/sch/i.html?_nkw={}",
     "nix": "https://github.com/search?q={}+language%3ANix+&type=code",
     # "gt": "https://translate.google.com/?sl=en&tl=es&text={}&op=translate",
     "gt": "https://translate.google.com/?sl=auto&tl=es&text={}&op=translate",
+    "solotodo": "https://www.solotodo.cl/search?search={}",
 }
+
 
 for i in range(1, 10):
     config.bind(f"<Ctrl-{i}>", f"tab-focus {i}")
+
 
 # filechooser = ["foot", "-e", "sh", "-c", 'cd && yazi --chooser-file="$1"', "_", "{}"]
 # c.fileselect.handler = "external"

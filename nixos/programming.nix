@@ -35,6 +35,8 @@
     kotlin-native
     jetbrains.idea-community
     gradle
+    jdk
+    unstable.android-studio
 
     # terminal and tools
     tmux # multiplexer

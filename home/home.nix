@@ -1,11 +1,12 @@
 {
   pkgs,
   unstable,
+  config,
   ...
 }@inputs:
-# let
-#       inherit (import ../variables.nix) hostname system username;
-# in
+let
+  inherit (import ../variables.nix) secondDriveMnt;
+in
 {
   imports = [
     # ./modules/nnn
@@ -24,11 +25,20 @@
   programs.fish.enable = true;
   home.stateVersion = "24.05";
   # home.homeDirectory = "/home/alejg"
+  # dowload folder in second drive
+
+  # home.file."Downloads".source = config.lib.file.mkOutOfStoreSymlink "${secondDriveMnt}/Downloads";
+  # home.file."Downloads" = {
+  #   source = "${secondDriveMnt}/Downloads";
+  #   target = "~/Downloads";
+  # };
 
   home.packages = with pkgs; [
 
     # stig # bittorrent
-    #
+    exfat
+    util-linux
+    nemo
     qbittorrent
     unstable.vscode
     # for ai assistant
@@ -227,9 +237,11 @@
       "application/zip" = [ "xarchiver.desktop" ];
       "text/*" = [ "emacsclient.desktop" ]; # Any text files
       "video/*" = [ "mpv.desktop" ]; # Any video files
-      "x-scheme-handler/https" = [ "qutebrowser.desktop" ]; # Links
-      "x-scheme-handler/http" = [ "qutebrowser.desktop" ]; # Links
-      "x-scheme-handler/mailto" = [ "qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/unknown" = [ "org.qutebrowser.qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/about" = [ "org.qutebrowser.qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/https" = [ "org.qutebrowser.qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/http" = [ "org.qutebrowser.qutebrowser.desktop" ]; # Links
+      "x-scheme-handler/mailto" = [ "org.qutebrowser.qutebrowser.desktop" ]; # Links
       "image/*" = [ "feh.desktop" ]; # Images
       "image/webp" = [ "feh.desktop" ]; # Images
       "image/png" = [ "feh.desktop" ];

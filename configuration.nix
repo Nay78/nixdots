@@ -7,7 +7,12 @@
   ...
 }:
 let
-  inherit (import ./variables.nix) hostname system username;
+  inherit (import ./variables.nix)
+    hostname
+    system
+    username
+    secondDriveMnt
+    ;
 in
 {
   imports = [
@@ -15,11 +20,13 @@ in
     ./nixos/vbox.nix
     ./nixos/qutebrowser-profiles.nix
     ./nixos/dropbox.nix
-    ./nixos/vfio.nix
+    # ./nixos/vfio.nix
     # ./nixos/sddm.nix
   ];
 
   # services.thermald.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
   services.auto-cpufreq.enable = true;
 
   services.udev.extraRules = ''
@@ -47,6 +54,19 @@ in
     };
     #
   };
+
+  systemd.user.services.stow = {
+    description = "Stow Download folder on second drive";
+    after = [ "graphical.target" ]; # or "default.target", depending on your session manager
+    wantedBy = [ "default.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "ln -s ${secondDriveMnt}/Downloads ~/";
+      RemainAfterExit = true;
+    };
+  };
+
   # programs.hyprland.enable = true;
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
   # environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
@@ -74,8 +94,13 @@ in
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "amd_iommu=on" ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelParams = [
+    "amd_iommu=on"
+    "pcie_aspm=off"
+  ];
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -125,6 +150,7 @@ in
       "wheel"
       "networkmanager"
       "dialout"
+      "libvirt"
       # "sudo"
 
     ]; # Enable ‘sudo’ for the user.
@@ -148,6 +174,9 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    displaylink # nonfree
+    xorg.xrandr
+    cron
     udisks
     udiskie
     qutebrowser
@@ -166,6 +195,8 @@ in
     wget
     unzip
     ripgrep
+
+    # virtual shit
     # nixfmt-rfc-style
     # xdg-desktop-portal-gnome
     # xdg-desktop-portal-gtk
@@ -174,6 +205,11 @@ in
     # xdg-desktop-portal-wlr
   ];
   # fonts
+  # nixpkgs.config.allowUnfreePredicate =
+  #   pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "displaylink"
+  #   ];
 
   fonts = {
     # enableFontDir = true;
@@ -214,6 +250,7 @@ in
   environment.sessionVariables = {
     FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
     FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts";
+    DEFAULT_BROWSER = "${pkgs.qutebrowser}/bin/qutebrowser";
   };
 
   # fonts.fontDir.enable = true;
@@ -277,6 +314,31 @@ in
     enable = true;
     enableSSHSupport = true;
   };
+
+  # nix-prefetch-url --name displaylink-600.zip https://www.synaptics.com/sites/default/files/exe_files/2024-10/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.1-EXE.zip
+  # nix-prefetch-url --name displaylink-600.zip https://www.synaptics.com/sites/default/files/exe_files/2024-05/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.0-EXE.zip
+  # nix-prefetch-url --name displaylink-6.0.0-24.zip https://www.synaptics.com/sites/default/files/exe_files/2024-10/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.1-EXE.zip
+  #https://www.synaptics.com/sites/default/files/exe_files/2024-05/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.0-EXE.zip
+  # hardware.dis
+  services.xserver = {
+    enable = true;
+    videoDrivers = [
+      "displaylink"
+      "modesetting"
+    ];
+    # desktopManager = {
+    #   plasma5.enable = true;
+    # };
+    # layout = "us";
+    # xkbVariant = "";
+    # dpi = 96;
+    # displayManager.sessionCommands = ''
+    #   ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 1 0
+    # '';
+  };
+
+  # mv $PWD/"DisplayLink USB Graphics Software for Ubuntu6.0-EXE.zip" $PWD/displaylink-600.zip
+  # nix-prefetch-url file://$PWD/displaylink-600.zip
 
   # List services that you want to enable:
 

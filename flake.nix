@@ -8,8 +8,9 @@
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    pyfhsflake.url = "path:./nixos/python";
-    pyfhsflake.inputs.nixpkgs.follows = "nixpkgs";
+    # impurity.url = "github:outfoxxed/impurity.nix";
+    # pyfhsflake.url = "path:./nixos/python";
+    # pyfhsflake.inputs.nixpkgs.follows = "nixpkgs";
     # gBar.url = "github:scorpion-26/gBar";
     # nix-ld.url = "github:Mic92/nix-ld";
     # nix-ld.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +27,7 @@
       nixpkgs,
       home-manager,
       unstable,
-      pyfhsflake,
+      # pyfhsflake,
       # gBar,
       # nix-ld,
       # qbpm,

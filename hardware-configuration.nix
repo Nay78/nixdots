@@ -8,11 +8,25 @@
   modulesPath,
   ...
 }:
-
+let
+  inherit (import ./variables.nix) username secondDriveMnt;
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+
+  # nixpkgs.config.allowUnfreePredicate =
+  #   pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "nvidia-x11"
+  #   ];
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+    ];
 
   boot.initrd.availableKernelModules = [
     "nvme"
@@ -20,15 +34,37 @@
     "usb_storage"
     "usbhid"
     "sd_mod"
+    "amdgpu"
+    "vfio-pci"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [
+    "amd_iommu=on"
+    "pcie_aspm=off"
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0420340b-01d5-44cc-8a18-b99fcdc25dd6";
     fsType = "ext4";
   };
+
+  # secondary nvme
+  fileSystems."${secondDriveMnt}" = {
+    device = "/dev/disk/by-uuid/ed53f75d-9126-4043-be57-6cda628e8dfe";
+    # device = "/dev/nvme1n1p1";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "users"
+    ];
+  };
+
+  systemd.tmpfiles.rules = [
+    # "d /mnt/nvme1 0755 root root"
+    "d /mnt/nvme1 0755 ${username} users"
+  ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/9F31-F630";
@@ -79,22 +115,47 @@
   #   };
   # };
 
-  specialisation."VFIO".configuration = {
-    system.nixos.tags = [ "with-vfio" ];
-    vfio.enable = true;
-  };
+  # specialisation."VFIO".configuration = {
+  #   system.nixos.tags = [ "with-vfio" ];
+  #   vfio.enable = false;
+  # };
+  #
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware = {
     # enableAllFirmware = true;
     # cpu.amd.updateMicrocode = true; # needs unfree
     opengl.enable = true;
+    graphics.enable = true;
     graphics.enable32Bit = true;
+
+    nvidia = {
+      prime = {
+        sync.enable = true;
+        nvidiaBusId = "PCI:1:0:0";
+        amdgpuBusId = "PCI:6:0:0";
+        # intelBusId = "PCI:0:2:0";
+
+      };
+      # open = true;
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      powerManagement.finegrained = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
+      # config.boot.kernelPackages.nvidiaPackages.package = stable;
+    };
   };
 
-  hardware.nvidia.prime = {
-    sync.enable = true;
-    nvidiaBusId = "PCI:1:0:0";
-    amdgpuBusId = "PCI:6:0:0";
-    # intelBusId = "PCI:0:2:0";
-  };
-  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.prime = {
+  #   sync.enable = true;
+  #   nvidiaBusId = "PCI:1:0:0";
+  #   amdgpuBusId = "PCI:6:0:0";
+  #   # intelBusId = "PCI:0:2:0";
+  # };
+  # hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia = with config.boot.kernelPackages.nvidiaPackages; {
+  #   package = stable;
+  # };
+
 }

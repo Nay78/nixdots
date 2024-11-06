@@ -36,28 +36,10 @@
         "type": "github"
       }
     },
-    "pyfhsflake": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-EkfTKrZT0RN0J4wr9+dUIX3p2TnnwV6n/J92h2bhENA=",
-        "path": "./nixos/python",
-        "type": "path"
-      },
-      "original": {
-        "path": "./nixos/python",
-        "type": "path"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "pyfhsflake": "pyfhsflake",
         "stable": "stable",
         "unstable": "unstable"
       }

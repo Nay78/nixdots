@@ -43,6 +43,7 @@ alias mountx='gocryptfs ~/files/alejg ~/Desktop/alejg'
 
 # personal
 
+alias nix-clean='sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +5 && nix-store --gc'
 alias reb='sudo nixos-rebuild switch --verbose --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
 alias reb2='sudo nixos-rebuild switch --verbose --commit-lock-file --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
 alias nixlog="journalctl -u home-manager-alejg.service"
