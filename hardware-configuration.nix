@@ -97,7 +97,7 @@ in
   #
   services.xserver.videoDrivers = [
     "nvidia"
-    "amdgpu"
+    # "amdgpu"
 
     "displaylink"
     "modesetting"
@@ -130,19 +130,19 @@ in
 
     nvidia = {
       prime = {
+        # enable = true;
         sync.enable = true;
         nvidiaBusId = "PCI:1:0:0";
         amdgpuBusId = "PCI:6:0:0";
         # intelBusId = "PCI:0:2:0";
 
       };
-      # open = true;
       modesetting.enable = true;
       powerManagement.enable = true;
       powerManagement.finegrained = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.production;
-      # config.boot.kernelPackages.nvidiaPackages.package = stable;
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
 

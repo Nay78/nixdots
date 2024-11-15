@@ -51,6 +51,7 @@ in
     nix-ld = {
       enable = true;
     };
+    # lutris.enable = true;
   };
 
   systemd.user.services.stow = {
@@ -151,6 +152,15 @@ in
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # lutris x
+    lutris
+    wine
+    wine64
+    wineWowPackages.stable
+    winetricks
+    wineWowPackages.waylandFull
+
+    lshw
     usbutils
     displaylink # nonfree
     xorg.xrandr

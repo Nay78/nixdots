@@ -9,7 +9,7 @@ return {
   -- },
   opts = {
     window = {
-      position = "right",
+      -- position = "right",
       mappings = {
         ["<Right>"] = "open",
         ["<Left>"] = "close_node",

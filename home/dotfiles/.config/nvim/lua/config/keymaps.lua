@@ -2,6 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 -- Make all keymaps silent by default.
+
 local keymap_set = vim.keymap.set
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.keymap.set = function(mode, lhs, rhs, opts)
@@ -9,6 +10,49 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
   opts.silent = opts.silent ~= false
   return keymap_set(mode, lhs, rhs, opts)
 end
+
+-- panel control
+local function print_current_window_name()
+  local current_window = vim.api.nvim_get_current_win()
+  local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(current_window))
+  print("Current window name: " .. buf_name)
+end
+vim.api.nvim_create_user_command("PrintCurrentWindowName", print_current_window_name, {})
+vim.api.nvim_set_keymap("n", "<leader>nb", ":lua print_current_window_name()<CR>", { noremap = true, silent = true })
+
+local function toggle_copilot_pane()
+  local copilot_pane = vim.fn.bufwinnr("copilot-chat")
+  if copilot_pane ~= -1 then
+    if vim.fn.winnr() == copilot_pane then
+      vim.cmd("close")
+    else
+      vim.cmd(copilot_pane .. "wincmd w")
+    end
+  else
+    vim.cmd("CopilotChatOpen")
+  end
+end
+local function toggle_neotree_pane()
+  local neotree_pane = vim.fn.bufwinnr("neo-tree filesystem")
+  if neotree_pane ~= -1 then
+    if vim.fn.winnr() == neotree_pane then
+      vim.cmd("Neotree close")
+    else
+      vim.cmd(neotree_pane .. "wincmd w")
+    end
+  else
+    vim.cmd("Neotree toggle")
+  end
+end
+vim.keymap.set("n", "<M-1>", toggle_neotree_pane)
+vim.keymap.set("n", "<M-4>", "<cmd>CompilerToggleResults<cr>")
+vim.keymap.set("n", "<M-5>", "<cmd>:lua require('avante').toggle()<CR>")
+vim.keymap.set("n", "<M-7>", toggle_copilot_pane)
+
+-- gotos
+-- afct taken
+vim.keymap.set("n", "<M-e>", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<M-e>", vim.diagnostic.goto_prev)
 
 -- Make the leader a noop when not followed by something.
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>")
@@ -142,16 +186,20 @@ vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- comments
 -- vim.keymap.set("n", "ﾯ", "gc^j")
-vim.keymap.set("n", "ﾯ", "gccj", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-/>", "gccj", { noremap = true, silent = true })
--- vim.keymap.set('n', '<c-/>', 'gc<CR>', { noremap = true, silent = true })
--- vim.keymap.set("n", "<C-_>", "gc<CR>")
--- <PageDown><PageUp><C-PageDown><C-BS>
+vim.keymap.set("n", "ﾯ", "gccj", { noremap = true })
+vim.keymap.set("n", "<C-_>", "gccj", { noremap = true })
+vim.keymap.set("n", "<C-/>", "gccj", { noremap = true })
 
-vim.keymap.set("n", "<C-PageDown>", "<leader>bP")
-vim.keymap.set("n", "<C-PageUp>", "<leader>bP")
+-- buffer tab control
+vim.keymap.set("n", "<PageDown>", "<C-d>zz")
+vim.keymap.set("n", "<PageUp>", "<C-u>zz")
+vim.keymap.set("n", "<C-PageDown>", ":BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<C-PageUp>", ":BufferLineCyclePrev<CR>")
+vim.keymap.set("n", "<C-S-PageDown>", ":BufferLineMoveNext<CR>")
+vim.keymap.set("n", "<C-S-PageUp>", ":BufferLineMovePrev<CR>")
 -- vim.keymap.set("i", "<c-bs>", "dw")
 -- vim.keymap.set("i", "<c-bs>", "dw")
+--
 
 -- ctrl arrow movement
 -- vim.keymap.set("n", "<C-Up>", "{")
@@ -191,9 +239,6 @@ vim.keymap.set("n", "<A-Right>", "<C-w>l", { noremap = true, silent = true })
 -- backspace delete word
 -- vim.keymap.set("i", "<C-BS>", "<C-w>")
 vim.keymap.set("i", "", "<C-w>")
-
-vim.keymap.set("n", "<C-PageDown>", ":BufferLineCycleNext<CR>")
-vim.keymap.set("n", "<C-PageUp>", ":BufferLineCyclePrev<CR>")
 
 -- switch window
 vim.keymap.set("n", "<C-Tab>", "<C-w>w", { noremap = true, silent = true })

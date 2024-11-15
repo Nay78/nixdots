@@ -211,9 +211,15 @@ config.bind(
 )
 
 
+config.bind(
+    "ca",
+    "set -t content.javascript.clipboard access ;; cmd-later 60s set -p content.javascript.clipboard none",
+)
 # config.unbind("d")
-config.bind("d", "tab-clone")
 config.unbind("<Ctrl-q>")
+config.unbind("r")
+config.bind("<Ctrl-r>", "reload")
+config.bind("d", "tab-clone")
 config.bind("<Ctrl-v>", "insert-text {clipboard}")
 config.bind("<Ctrl-tab>", "tab-next", mode="normal")
 config.bind("<Ctrl-tab>", "tab-next", mode="insert")

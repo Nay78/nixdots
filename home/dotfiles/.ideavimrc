@@ -13,6 +13,8 @@ set ReplaceWithRegister
 set exchange
 set which-key
 set quickscope 
+set clipboard+=unnamed
+
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " Trying the new syntax
 Plug 'machakann/vim-highlightedyank'

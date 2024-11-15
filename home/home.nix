@@ -34,6 +34,7 @@ in
   # };
 
   home.packages = with pkgs; [
+    lutris
     usbutils
     # stig # bittorrent
     exfat
@@ -131,7 +132,6 @@ in
     qmk
     via
     keepassxc
-    # unstable.dropbox
     krita
     # Nvidia stuff. FIXME: fine tune for the new hardware
 
@@ -233,7 +233,7 @@ in
       "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
         "onlyoffice-desktopeditors.desktop"
       ]; # .pptx
-      "application/pdf" = [ "zathura.desktop" ]; # .pdf
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ]; # .pdf
       "application/zip" = [ "xarchiver.desktop" ];
       "text/*" = [ "emacsclient.desktop" ]; # Any text files
       "video/*" = [ "mpv.desktop" ]; # Any video files

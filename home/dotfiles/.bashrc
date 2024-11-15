@@ -42,6 +42,7 @@ alias f='fzf'
 alias mountx='gocryptfs ~/files/alejg ~/Desktop/alejg'
 
 # personal
+alias journal-clear='sudo journalctl --rotate && sudo journalctl --vacuum-time=1s'
 
 alias nix-clean='sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +5 && nix-store --gc'
 alias reb='sudo nixos-rebuild switch --verbose --flake ~/nixos && stow -d ~/nixos/home/dotfiles -t ~/ .'
