@@ -49,5 +49,16 @@
 
     dvtm # terminal multiplexer
     abduco # terminal sessions
+
+    # libs
+    glib
+    glibc
+    nss
+    gobject-introspection
+    # libxcb
+    #   libxcomposite
+    #   libxcursor
+    #   libxdamage
+    #   libxrandr
   ];
 }

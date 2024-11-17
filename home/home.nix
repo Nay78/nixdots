@@ -22,7 +22,7 @@ in
   ];
 
   programs.home-manager.enable = true;
-  programs.fish.enable = true;
+  # programs.fish.enable = true;
   home.stateVersion = "24.05";
   # home.homeDirectory = "/home/alejg"
   # dowload folder in second drive
@@ -34,6 +34,11 @@ in
   # };
 
   home.packages = with pkgs; [
+    # xlibs
+    glib
+    glibc
+
+    pulsemixer
     lutris
     usbutils
     # stig # bittorrent

@@ -42,7 +42,7 @@ in
   boot.extraModulePackages = [ ];
   boot.kernelParams = [
     "amd_iommu=on"
-    "pcie_aspm=off"
+    # "pcie_aspm=off"
   ];
 
   fileSystems."/" = {

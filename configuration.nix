@@ -20,6 +20,7 @@ in
     ./nixos/vbox.nix
     ./nixos/qutebrowser-profiles.nix
     ./nixos/dropbox.nix
+    ./nixos/nix-alien.nix
     # ./nixos/vfio.nix
     # ./nixos/sddm.nix
   ];
@@ -71,6 +72,8 @@ in
     QT_SCALE_FACTOR_ROUNDING_POLICY = "RoundPreferFloor";
     NIXOS_OZONE_WL = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
+    # LD_LIBRARY_PATH = "${pkgs.glibc}/lib";
+    # LD_LIBRARY_PATH = "${pkgs.glibc.out}/lib";
     # QT_QPA_PLATFORMTHEME = "qt6ct";
     # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     # QT_AUTO_SCREEN_SCALE_FACTOR = "1";

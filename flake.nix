@@ -19,6 +19,8 @@
     # qbpm.inputs.nixpkgs.follows = "nixpkgs";
 
     # qutebrowser-flake.url = import ./nixos/qutebrowser-profiles.nix;
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -31,12 +33,14 @@
       # gBar,
       # nix-ld,
       # qbpm,
+      nix-index-database,
       ...
     }@inputs:
     # outputs = { self, nixpkgs, home-manager, unstable, ... }@inputs: 
 
     let
       inherit (import ./variables.nix) hostname system username;
+      # pkgs = nixpkgs.legacyPackages.${system};
       fhs = unstable.buildFHSUserEnv {
         name = "fhs-shell";
         targetPkgs =
@@ -80,12 +84,16 @@
             self = self;
 
           };
+          # inherit pkgs;
           modules = [
             home-manager.nixosModules.home-manager
+            # nix-index-database.hmModules.nix-index
+            nix-index-database.nixosModules.nix-index
             { networking.hostName = hostname; }
             ./configuration.nix
             ./home
             ./nixos/programming.nix
+            # nix-index-database.nixosModules.nix-index-database
             # nix-ld.nixosModules.nix-ld
             # qbpm.packages.${system}
             # pyfhsflake.devShells.x86_64-linux.default
