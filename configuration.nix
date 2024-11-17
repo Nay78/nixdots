@@ -20,7 +20,8 @@ in
     ./nixos/vbox.nix
     ./nixos/qutebrowser-profiles.nix
     ./nixos/dropbox.nix
-    ./nixos/nix-alien.nix
+    ./nixos/nix-ld.nix
+    # ./nixos/nix-alien.nix
     # ./nixos/vfio.nix
     # ./nixos/sddm.nix
   ];
@@ -48,9 +49,6 @@ in
     neovim = {
       enable = true;
       defaultEditor = true;
-    };
-    nix-ld = {
-      enable = true;
     };
     # lutris.enable = true;
   };

@@ -37,6 +37,7 @@ in
     # xlibs
     glib
     glibc
+    nss
 
     pulsemixer
     lutris
